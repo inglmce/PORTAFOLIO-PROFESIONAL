@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#15171c">
+<title>Luis Miguel Cruz Efus — Ingeniero Civil · Especialista BIM · Desarrollador</title>
+<meta name="description" content="Portafolio profesional de Luis Miguel Cruz Efus. Optimización y automatización de expedientes técnicos con flujos BIM. PTAR, saneamiento, presupuestos y aplicativos técnicos.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          serif: ['Instrument Serif', 'Georgia', 'serif'],
+          sans: ['Geist', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root{
+    --ink: oklch(0.16 0.012 250);
+    --ink-deep: oklch(0.12 0.012 250);
+    --surface: oklch(0.21 0.012 250);
+    --surface-2: oklch(0.26 0.012 250);
+    --line: oklch(0.35 0.012 250 / 0.6);
+    --line-soft: oklch(0.35 0.012 250 / 0.25);
+    --text: oklch(0.94 0.008 80);
+    --text-dim: oklch(0.75 0.008 80);
+    --muted: oklch(0.6 0.012 250);
+    --accent: oklch(0.78 0.14 65);
+    --accent-deep: oklch(0.68 0.14 65);
+    --accent-soft: oklch(0.78 0.14 65 / 0.12);
+    --blueprint: oklch(0.72 0.07 220);
+  }
+
+  *{ -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Geist', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Blueprint grid background — only in hero */
+  .blueprint-bg{
+    background-image:
+      linear-gradient(oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+  }
+  .blueprint-bg-sm{
+    background-image:
+      linear-gradient(oklch(0.35 0.012 250 / 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.35 0.012 250 / 0.14) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .serif{ font-family:'Instrument Serif', Georgia, serif; font-weight:400; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+
+  .display{
+    font-family:'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 0.95;
+  }
+  .display em{ font-style: italic; color: var(--accent); font-weight:400; }
+
+  /* Coordinate tag */
+  .coord{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display:inline-flex; align-items:center; gap:0.5rem;
+  }
+  .coord::before{
+    content:""; width: 18px; height:1px; background: var(--accent);
+  }
+
+  /* Tick / dimension lines */
+  .tick-row{
+    display:flex; align-items:center; gap: 8px;
+    color: var(--muted); font-family:'JetBrains Mono', monospace;
+    font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .tick-row::before, .tick-row::after{
+    content:""; height: 1px; background: var(--line); flex:1;
+  }
+
+  /* Reveal on scroll */
+  [data-reveal]{ opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+  [data-reveal].in{ opacity: 1; transform: translateY(0); }
+
+  /* Cards */
+  .card{
+    background: linear-gradient(180deg, oklch(0.21 0.012 250) 0%, oklch(0.18 0.012 250) 100%);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover{
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .card::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(135deg, transparent 0 49%, var(--accent) 49% 50%, transparent 50% 100%);
+    background-size: 16px 16px;
+    background-position: top right;
+    background-repeat: no-repeat;
+    opacity: 0; transition: opacity .3s ease;
+  }
+  .card:hover::after{ opacity: 1; }
+
+  /* Corner brackets — for hero figure */
+  .brackets{ position: relative; }
+  .brackets::before, .brackets::after{
+    content:""; position:absolute; width: 18px; height: 18px;
+    border: 1px solid var(--accent);
+  }
+  .brackets::before{ top: -1px; left: -1px; border-right:none; border-bottom:none; }
+  .brackets::after{ bottom: -1px; right: -1px; border-left:none; border-top:none; }
+
+  /* Btn */
+  .btn{
+    display:inline-flex; align-items:center; gap: 10px;
+    padding: 14px 22px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    transition: all .25s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--accent);
+    color: var(--ink-deep);
+  }
+  .btn-primary:hover{ background: var(--accent-deep); transform: translateY(-1px); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--text);
+    border-color: var(--line);
+  }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+
+  /* App / Project card image area */
+  .cover{
+    aspect-ratio: 16/10;
+    background:
+      linear-gradient(135deg, oklch(0.26 0.012 250) 0%, oklch(0.20 0.012 250) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover.placeholder::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(45deg, oklch(0.30 0.012 250) 1px, transparent 1px),
+      linear-gradient(-45deg, oklch(0.30 0.012 250) 1px, transparent 1px);
+    background-size: 14px 14px;
+    opacity: 0.5;
+  }
+  .cover img{
+    width:100%; height:100%; object-fit:cover;
+    transition: transform .7s ease;
+  }
+  .card:hover .cover img{ transform: scale(1.04); }
+
+  /* Section label */
+  .sec-label{
+    display:flex; align-items:baseline; gap: 18px; margin-bottom: 28px;
+  }
+  .sec-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+  .sec-title{
+    font-family:'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .sec-title em{ font-style: italic; color: var(--accent); }
+  .sec-rule{ flex:1; height:1px; background: linear-gradient(to right, var(--line), transparent); }
+
+  /* Stack ribbon */
+  .stack-track{
+    display:flex; gap: 56px; align-items:center;
+    animation: marquee 50s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  @keyframes marquee{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .stack-item{
+    font-family:'Instrument Serif', serif;
+    font-size: 2.2rem;
+    color: var(--text-dim);
+    letter-spacing: -0.01em;
+    transition: color .3s ease;
+    display:inline-flex; align-items:center; gap: 14px;
+  }
+  .stack-item:hover{ color: var(--accent); }
+  .stack-item::after{
+    content:"·"; color: var(--accent); font-size: 2rem; margin-left: 14px;
+  }
+
+  /* Form */
+  .field{
+    width:100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    padding: 14px 0;
+    font-family:'Geist', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color .25s ease;
+  }
+  .field:focus{ outline: none; border-bottom-color: var(--accent); }
+  .field::placeholder{ color: var(--muted); }
+  textarea.field{ resize: vertical; min-height: 80px; }
+
+  /* Glow blob behind hero */
+  .glow{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* Tag chips */
+  .chip{
+    display:inline-flex; align-items:center; gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .chip.accent{ border-color: var(--accent); color: var(--accent); }
+
+  /* Anchor target offset */
+  section[id]{ scroll-margin-top: 80px; }
+
+  /* Project card "empty" state */
+  .empty-pulse{
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{ opacity: 0.5; }
+    50%{ opacity: 1; }
+  }
+
+  /* Numbered stat */
+  .stat-num{
+    font-family:'Instrument Serif', serif;
+    font-size: clamp(2.6rem, 6vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat-num em{ font-style: italic; color: var(--accent); }
+
+  /* Nav blur */
+  .nav-bg{
+    background: oklch(0.16 0.012 250 / 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 group">
+      <div class="w-8 h-8 border flex items-center justify-center" style="border-color: var(--accent);">
+        <span class="serif text-lg leading-none" style="color: var(--accent);">L</span>
+      </div>
+      <div class="leading-tight">
+        <div class="text-sm font-medium tracking-tight">Luis M. Cruz Efus</div>
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">CIP 339195 · Ing. Civil</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 mono text-[0.72rem] uppercase tracking-[0.14em]" style="color: var(--text-dim);">
+      <a href="#perfil" class="hover:text-white transition-colors">Perfil</a>
+      <a href="#proyectos" class="hover:text-white transition-colors">Proyectos</a>
+      <a href="#aplicativos" class="hover:text-white transition-colors">Aplicativos</a>
+      <a href="#stack" class="hover:text-white transition-colors">Stack</a>
+      <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+    </nav>
+    <a href="#contacto" class="btn btn-ghost !py-2 !px-4 !text-xs">Conversemos →</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.55"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.21 0.012 250) 0%, transparent 70%);"></div>
+  <div class="glow" style="width: 600px; height: 600px; background: var(--accent); top: -100px; right: -100px;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+
+    <!-- Coordinate header line -->
+    <div class="flex items-center justify-between mb-12 lg:mb-20">
+      <div class="coord">N.00 · Portafolio Profesional</div>
+      <div class="coord hidden md:flex">Rev. 01 · 2026 · LIM-PE</div>
+    </div>
+
+    <!-- Main display -->
+    <div class="max-w-6xl">
+      <p class="mono text-xs uppercase tracking-[0.22em] mb-8" style="color: var(--accent);">
+        ◆ &nbsp;Ingeniero Civil &nbsp;/&nbsp; Especialista BIM &nbsp;/&nbsp; Desarrollador
+      </p>
+      <h1 class="display text-[2.6rem] sm:text-[3.6rem] md:text-[4.8rem] lg:text-[6.2rem]" data-reveal>
+        Optimización y<br>
+        automatización<br>
+        de <em>expedientes técnicos</em><br>
+        con flujos <em>BIM</em>.
+      </h1>
+    </div>
+
+    <!-- Subhead grid -->
+    <div class="grid md:grid-cols-12 gap-8 mt-16 lg:mt-24" data-reveal>
+      <div class="md:col-span-1 hidden md:block">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.2em]" style="color: var(--muted);">N.01</div>
+      </div>
+      <div class="md:col-span-7">
+        <p class="text-lg lg:text-xl leading-relaxed" style="color: var(--text-dim);">
+          Llevo cinco años convirtiendo proyectos de saneamiento, PTAR e infraestructura en expedientes técnicos que no se reprocesan. Combino experiencia real en campo, modelado <span style="color: var(--text);">BIM con Revit</span>, presupuestos con <span style="color: var(--text);">S10 y Delphin Express</span>, planificación con <span style="color: var(--text);">Primavera P6</span> y desarrollo de aplicativos web para automatizar lo que antes tomaba semanas.
+        </p>
+      </div>
+      <div class="md:col-span-4 flex md:justify-end items-end">
+        <div class="flex flex-wrap gap-3">
+          <a href="#proyectos" class="btn btn-primary">
+            Ver casos de éxito
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#aplicativos" class="btn btn-ghost">Ecosistema de aplicativos</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-24 lg:mt-32 pt-10 border-t" style="border-color: var(--line-soft);" data-reveal>
+      <div>
+        <div class="stat-num"><em>05</em></div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Años de<br>experiencia técnica</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>13</em></div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Aplicativos<br>desarrollados</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>221</em></div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Viviendas<br>gestionadas en obra</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>+20</em></div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Expedientes técnicos<br>en saneamiento y PTAR</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PERFIL ============ -->
+<section id="perfil" class="py-24 lg:py-32 relative" style="background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="sec-label">
+      <span class="sec-num">§ 01</span>
+      <h2 class="sec-title">Perfil <em>resumido</em></h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <div class="grid md:grid-cols-12 gap-10 lg:gap-16" data-reveal>
+      <div class="md:col-span-7">
+        <p class="serif text-3xl lg:text-4xl leading-[1.15]" style="color: var(--text);">
+          Reduzco reprocesos y tiempos de cálculo en expedientes técnicos combinando <em style="color: var(--accent); font-style: italic;">experiencia en campo</em>, dominio de <em style="color: var(--accent); font-style: italic;">presupuestos y programación normativa</em>, y la capacidad de automatizar lo repetitivo con código.
+        </p>
+        <div class="mt-10 space-y-5" style="color: var(--text-dim);">
+          <p>
+            Migré por iniciativa propia los flujos de AutoCAD → Revit, MS Project → Primavera P6 y métodos tradicionales → Delphin Express en mi empresa actual, llevando coordinación BIM real a saneamiento y PTAR.
+          </p>
+          <p>
+            Desde 2024 desarrollo aplicativos técnicos basados en normativa peruana (E.030, E.060, IS.010, AASHTO 93, MTC). Estas herramientas son, en realidad, la forma más honesta de demostrar cómo pienso: rigor normativo + lógica de cálculo + UX directa.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:col-span-5">
+        <div class="border-l pl-8 space-y-8" style="border-color: var(--line);">
+          <div>
+            <div class="coord mb-2">Ubicación</div>
+            <div class="text-lg">Lima, Perú</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Formación</div>
+            <div class="text-lg">Ingeniero Civil, UNPRG</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">Maestría en Gerencia de la Construcción y Proyectos BIM — UPN (en curso)</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Colegiatura</div>
+            <div class="text-lg mono">CIP N.° 339195</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Empleo actual</div>
+            <div class="text-lg">Hidroproject Consulting E.I.R.L.</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">Especialista en Expedientes Técnicos / Especialista BIM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PROYECTOS ============ -->
+<section id="proyectos" class="py-24 lg:py-32 relative">
+  <div class="absolute inset-0 blueprint-bg-sm" style="opacity:0.35"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+
+    <div class="sec-label">
+      <span class="sec-num">§ 02</span>
+      <h2 class="sec-title">Casos de <em>éxito</em></h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <p class="max-w-2xl mb-16 text-lg leading-relaxed" style="color: var(--text-dim);" data-reveal>
+      Proyectos donde participé como modelador / coordinador BIM, especialista hidráulico o responsable de expediente. Documentados con el método <span class="mono text-sm" style="color: var(--accent);">PROBLEMA → SOLUCIÓN → RESULTADO</span>.
+    </p>
+
+    <!-- Featured: Tocache -->
+    <a href="proyectos/ptar-tocache.html" class="card block group" data-reveal>
+      <div class="grid lg:grid-cols-12 gap-0">
+        <div class="lg:col-span-7 cover" style="aspect-ratio: auto;">
+          <img src="https://i.postimg.cc/RCspNgt8/Ptar-tocache-twinmt.png" alt="PTAR Tocache — render Twinmotion del modelo BIM" loading="lazy">
+        </div>
+        <div class="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="chip accent">Caso destacado</span>
+              <span class="chip">2024 — 2025</span>
+            </div>
+            <div class="coord mb-4">N.01 / Proyecto</div>
+            <h3 class="display text-4xl lg:text-5xl mb-6">
+              PTAR <em>Tocache</em>
+            </h3>
+            <p class="text-base leading-relaxed mb-8" style="color: var(--text-dim);">
+              Ampliación y mejoramiento de los servicios de agua potable y alcantarillado en una ciudad de San Martín. Modelado BIM completo de la parte hidráulica y cálculos hidráulicos asociados.
+            </p>
+            <div class="grid grid-cols-3 gap-4 pb-8 border-b" style="border-color: var(--line-soft);">
+              <div>
+                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Rol</div>
+                <div class="text-sm">Modelador BIM hidráulico</div>
+              </div>
+              <div>
+                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Stack</div>
+                <div class="text-sm">Revit · Twinmotion · AutoCAD</div>
+              </div>
+              <div>
+                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Sector</div>
+                <div class="text-sm">Saneamiento urbano</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-8">
+            <span class="mono text-xs uppercase tracking-[0.18em]" style="color: var(--accent);">Ver caso completo</span>
+            <span class="w-10 h-10 border flex items-center justify-center transition-all group-hover:bg-[oklch(0.78_0.14_65)] group-hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--accent);">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color: var(--accent);" class="group-hover:!text-[oklch(0.16_0.012_250)]"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- More projects (in documentation) -->
+    <div class="grid md:grid-cols-2 gap-6 mt-6" data-reveal>
+      <div class="card p-8 lg:p-10">
+        <div class="cover placeholder mb-6 empty-pulse" style="aspect-ratio: 16/9; border: 1px dashed var(--line);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--muted);">— En documentación —</div>
+              <div class="serif text-2xl" style="color: var(--text-dim);">PTAR <em style="color: var(--accent); font-style:italic;">Chota</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mb-3">
+          <span class="chip">Próximamente</span>
+          <span class="chip">2024</span>
+        </div>
+        <h3 class="serif text-2xl mb-2">PTAR Chota — Cajamarca</h3>
+        <p class="text-sm" style="color: var(--muted);">
+          Expediente técnico de saneamiento urbano. Documentación en preparación; se publicará con renders, planos y memoria.
+        </p>
+      </div>
+
+      <div class="card p-8 lg:p-10">
+        <div class="cover placeholder mb-6 empty-pulse" style="aspect-ratio: 16/9; border: 1px dashed var(--line);">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--muted);">— En documentación —</div>
+              <div class="serif text-2xl" style="color: var(--text-dim);">Saneamiento <em style="color: var(--accent); font-style:italic;">rural</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mb-3">
+          <span class="chip">Próximamente</span>
+          <span class="chip">2024</span>
+        </div>
+        <h3 class="serif text-2xl mb-2">Saneamiento rural — Comunidades nativas</h3>
+        <p class="text-sm" style="color: var(--muted);">
+          Cascabamba, Nuevo Miraflores y otros expedientes en zonas remotas. Documentación en preparación.
+        </p>
+      </div>
+    </div>
+
+    <p class="mono text-xs uppercase tracking-[0.14em] mt-8 text-center" style="color: var(--muted);" data-reveal>
+      ◆ &nbsp;&nbsp;Portafolio en crecimiento — nuevos proyectos se documentan progresivamente
+    </p>
+
+  </div>
+</section>
+
+<!-- ============ APLICATIVOS ============ -->
+<section id="aplicativos" class="py-24 lg:py-32 relative" style="background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="sec-label">
+      <span class="sec-num">§ 03</span>
+      <h2 class="sec-title">Ecosistema de <em>aplicativos</em></h2>
+      <span class="sec-rule"></span>
+    </div>
+
+    <div class="grid md:grid-cols-12 gap-8 mb-16" data-reveal>
+      <div class="md:col-span-7">
+        <p class="text-lg leading-relaxed" style="color: var(--text-dim);">
+          Aplicativos web autocontenidos que desarrollo bajo mi marca <span style="color: var(--text);">LM Ingeniería e Innovación</span>. Cada uno automatiza un cálculo normativo específico (E.030, E.060, IS.010, AASHTO 93). Funcionan sin instalación, en cualquier dispositivo. Aquí los muestro como evidencia técnica — no como producto comercial.
+        </p>
+      </div>
+      <div class="md:col-span-5 flex md:justify-end items-end">
+        <div class="tick-row w-full"><span>13 productos digitales</span></div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- App 1: Asistente Sísmico -->
+      <a href="aplicativos/asistente-sismico.html" class="card group" data-reveal>
+        <div class="cover">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--accent);">N.E.030 — 2026</div>
+              <div class="serif text-3xl leading-tight">Asistente <em style="color: var(--accent); font-style: italic;">Sísmico</em></div>
+              <div class="mono text-xs mt-3" style="color: var(--muted);">·  · ·</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Estructuras</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Asistente Sísmico E.030</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Espectros, cortantes, derivas e irregularidades automatizadas. Importa resultados ETABS y genera memoria normativa.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--accent);">Ver demo →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- App 2 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">E.060</div>
+              <div class="serif text-3xl leading-tight">Vigas <em style="color: var(--accent); font-style: italic;">CºAº</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Estructuras</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Vigas de Concreto Armado</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Diseño por flexión, cortante y servicio. Optimización constructiva del acero y armado tipo plano.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 3 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">E.060 / E.030</div>
+              <div class="serif text-3xl leading-tight">Columnas <em style="color: var(--accent); font-style: italic;">RC</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Estructuras</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Columnas Rectangulares</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Flexocompresión biaxial 3D, esbeltez, P–Δ y confinamiento sísmico. Importa Column Forces de ETABS.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 4 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">ACI 318 / E.060</div>
+              <div class="serif text-3xl leading-tight">Muros de <em style="color: var(--accent); font-style: italic;">Corte</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Estructuras</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Muros de Corte</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            P–M por fibras, decisión de SBE, confinamiento de bordes y cortante por capacidad.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 5 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">E.060 / E.020</div>
+              <div class="serif text-3xl leading-tight">Escaleras <em style="color: var(--accent); font-style: italic;">CºAº</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Estructuras</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Escaleras de CºAº</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Verificación Blondel, combinaciones LRFD/ACI, acero positivo, negativo y temperatura.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 6 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">AASHTO 93 — MTC</div>
+              <div class="serif text-3xl leading-tight">Pavimentos <em style="color: var(--accent); font-style: italic;">Flexibles</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Transportes</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Pavimentos Flexibles AASHTO 93</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            ESALs, Mr desde CBR, distribución de capas y validación de espesores mínimos MTC.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 7 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.010</div>
+              <div class="serif text-3xl leading-tight">Dotaciones <em style="color: var(--accent); font-style: italic;">Agua Fría</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Dotaciones de Agua Fría</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Cálculo de demanda según uso edificatorio, criterios IS.010 y reporte automatizado.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 8 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.010</div>
+              <div class="serif text-3xl leading-tight">Bombeo e <em style="color: var(--accent); font-style: italic;">Impulsión</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Sistema de Bombeo e Impulsión</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Selección de bomba, NPSH, golpe de ariete y dimensionamiento de línea de impulsión.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 9 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.020</div>
+              <div class="serif text-3xl leading-tight">Biodigestor <em style="color: var(--accent); font-style: italic;">Prefab.</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Biodigestor Prefabricado</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Selección normativa, zanjas de infiltración asociadas y cumplimiento IS.020.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 10 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.010</div>
+              <div class="serif text-3xl leading-tight">Red de <em style="color: var(--accent); font-style: italic;">Agua</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Red de Agua — Ruta Crítica</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Cálculo hidráulico de la ruta crítica con verificación de presiones y velocidades.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 11 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.010</div>
+              <div class="serif text-3xl leading-tight">Red de <em style="color: var(--accent); font-style: italic;">Desagüe</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Red de Desagüe — Ruta Crítica</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Cálculo de pendientes, tirantes y verificación normativa de ramales y colectores.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 12 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">IS.020</div>
+              <div class="serif text-3xl leading-tight">Zanjas de <em style="color: var(--accent); font-style: italic;">Infiltración</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Inst. Sanitarias</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Zanjas de Infiltración</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Dimensionamiento por test de percolación y cumplimiento IS.020 para tratamiento secundario.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App 13 -->
+      <div class="card group" data-reveal>
+        <div class="cover placeholder">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">Geotecnia</div>
+              <div class="serif text-3xl leading-tight">Muros de <em style="color: var(--accent); font-style: italic;">Sostenimiento</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Geotecnia</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Muros de Sostenimiento</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Diseño y verificación geotécnica/estructural de muros de contención.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section id="stack" class="py-20 lg:py-28 relative overflow-hidden border-y" style="border-color: var(--line-soft);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 mb-10">
+    <div class="flex items-baseline justify-between flex-wrap gap-4">
+      <div class="flex items-baseline gap-5">
+        <span class="sec-num">§ 04</span>
+        <span class="mono text-xs uppercase tracking-[0.18em]" style="color: var(--muted);">Stack tecnológico</span>
+      </div>
+      <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Niveles reales — sin inflar</span>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="relative overflow-hidden">
+    <div class="stack-track">
+      <span class="stack-item">Revit</span>
+      <span class="stack-item">AutoCAD</span>
+      <span class="stack-item">Civil 3D</span>
+      <span class="stack-item">S10 Costos</span>
+      <span class="stack-item">Delphin Express</span>
+      <span class="stack-item">Primavera P6</span>
+      <span class="stack-item">Robot Structural</span>
+      <span class="stack-item">Twinmotion</span>
+      <span class="stack-item">Claude Code</span>
+      <span class="stack-item">Excel Avanzado</span>
+      <span class="stack-item">ETABS</span>
+      <span class="stack-item">INVIERTE.PE</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="stack-item">Revit</span>
+      <span class="stack-item">AutoCAD</span>
+      <span class="stack-item">Civil 3D</span>
+      <span class="stack-item">S10 Costos</span>
+      <span class="stack-item">Delphin Express</span>
+      <span class="stack-item">Primavera P6</span>
+      <span class="stack-item">Robot Structural</span>
+      <span class="stack-item">Twinmotion</span>
+      <span class="stack-item">Claude Code</span>
+      <span class="stack-item">Excel Avanzado</span>
+      <span class="stack-item">ETABS</span>
+      <span class="stack-item">INVIERTE.PE</span>
+    </div>
+  </div>
+
+  <!-- Skills breakdown -->
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="border-l pl-5" style="border-color: var(--accent);">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">Avanzado</div>
+        <div class="text-sm leading-relaxed">Revit · AutoCAD · S10 · Delphin Express · Excel avanzado</div>
+      </div>
+      <div class="border-l pl-5" style="border-color: var(--line);">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--text-dim);">Intermedio</div>
+        <div class="text-sm leading-relaxed">Primavera P6 · MS Project · Robot Structural · Civil 3D</div>
+      </div>
+      <div class="border-l pl-5" style="border-color: var(--line);">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--text-dim);">Operativo</div>
+        <div class="text-sm leading-relaxed">Twinmotion · INVIERTE.PE · SEACE · OSCE · Power BI</div>
+      </div>
+      <div class="border-l pl-5" style="border-color: var(--accent);">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">Diferencial</div>
+        <div class="text-sm leading-relaxed">Automatización HTML · Claude Code · Migración de flujos AutoCAD→Revit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" class="py-24 lg:py-36 relative">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.3"></div>
+  <div class="glow" style="width: 500px; height: 500px; background: var(--accent); bottom: -100px; left: 20%;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
+
+      <div class="lg:col-span-7">
+        <div class="coord mb-6">N.05 · Contacto</div>
+        <h2 class="display text-5xl md:text-6xl lg:text-7xl mb-10" data-reveal>
+          Hablemos de tu<br>
+          <em>próximo expediente</em>.
+        </h2>
+        <p class="text-lg leading-relaxed mb-12 max-w-xl" style="color: var(--text-dim);" data-reveal>
+          Disponible para consultoría de expedientes técnicos, coordinación BIM, modelado hidráulico, presupuestos S10/Delphin y desarrollo de aplicativos a medida. Lima, Perú — abierto a remoto.
+        </p>
+
+        <div class="space-y-4">
+          <a href="https://wa.me/51926179993?text=Hola%20Luis%2C%20te%20escribo%20por%20tu%20portafolio." target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0012 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 1020.5 3.5zM12 21.8a9.7 9.7 0 01-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.7 9.7 0 1112 21.8zm5.4-7.3l-1.9-1c-.3-.1-.5-.2-.7.1l-1 1.3c-.2.2-.4.3-.7.1a8 8 0 01-2.4-1.5 9 9 0 01-1.7-2c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5s0-.3 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.3 3.1a11.8 11.8 0 004.6 4 15 15 0 002.4.8c1 .3 1.9.3 2.6.2.8-.1 2.3-1 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.6-.4z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">WhatsApp</div>
+              <div class="text-lg">+51 926 179 993</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+
+          <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 110-3.5 1.8 1.8 0 010 3.5zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">LinkedIn</div>
+              <div class="text-lg">Luis Miguel Cruz Efus</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+
+          <a href="mailto:lmcruzef@gmail.com" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Correo</div>
+              <div class="text-lg">lmcruzef@gmail.com</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="lg:col-span-5">
+        <div class="card p-8 lg:p-10 brackets">
+          <div class="coord mb-6">N.06 · Formulario</div>
+          <h3 class="serif text-2xl mb-8">Cuéntame del proyecto.</h3>
+          <form id="contactForm" class="space-y-6">
+            <div>
+              <label class="mono text-[0.62rem] uppercase tracking-[0.18em] block mb-1" style="color: var(--muted);">Nombre</label>
+              <input class="field" type="text" name="nombre" placeholder="Tu nombre completo" required>
+            </div>
+            <div>
+              <label class="mono text-[0.62rem] uppercase tracking-[0.18em] block mb-1" style="color: var(--muted);">Empresa</label>
+              <input class="field" type="text" name="empresa" placeholder="Empresa o consultora">
+            </div>
+            <div>
+              <label class="mono text-[0.62rem] uppercase tracking-[0.18em] block mb-1" style="color: var(--muted);">Mensaje</label>
+              <textarea class="field" name="mensaje" placeholder="Tipo de expediente, alcance, plazo aproximado..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-full justify-center mt-8">
+              Enviar por WhatsApp
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <p class="mono text-[0.62rem] uppercase tracking-[0.14em] text-center" style="color: var(--muted);">
+              Al enviar, se abre WhatsApp con tu mensaje precargado
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="py-12 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-wrap items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 border flex items-center justify-center" style="border-color: var(--accent);">
+          <span class="serif text-base leading-none" style="color: var(--accent);">L</span>
+        </div>
+        <div>
+          <div class="text-sm font-medium">Luis Miguel Cruz Efus</div>
+          <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">CIP 339195 · Lima, Perú</div>
+        </div>
+      </div>
+      <div class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">
+        © 2026 · Portafolio rev.01 · Construido por su autor
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  // Contact form → WhatsApp
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const msg = `Hola Luis, soy ${f.get('nombre')} (${f.get('empresa') || 'sin empresa'}). ${f.get('mensaje')}`;
+    window.open(`https://wa.me/51926179993?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#15171c">
+<title>Asistente Sísmico E.030 — Aplicativo · Luis Miguel Cruz Efus</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --ink: oklch(0.16 0.012 250);
+    --ink-deep: oklch(0.12 0.012 250);
+    --surface: oklch(0.21 0.012 250);
+    --line: oklch(0.35 0.012 250 / 0.6);
+    --line-soft: oklch(0.35 0.012 250 / 0.25);
+    --text: oklch(0.94 0.008 80);
+    --text-dim: oklch(0.75 0.008 80);
+    --muted: oklch(0.6 0.012 250);
+    --accent: oklch(0.78 0.14 65);
+    --accent-deep: oklch(0.68 0.14 65);
+  }
+  *{ -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--ink); color: var(--text);
+    font-family: 'Geist', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .serif{ font-family:'Instrument Serif', Georgia, serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .display{ font-family:'Instrument Serif', serif; font-weight:400; letter-spacing:-0.018em; line-height:0.95; }
+  .display em{ font-style:italic; color: var(--accent); }
+
+  .blueprint-bg{
+    background-image:
+      linear-gradient(oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .coord{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); display:inline-flex; align-items:center; gap:0.5rem;
+  }
+  .coord::before{ content:""; width: 18px; height:1px; background: var(--accent); }
+
+  .chip{
+    display:inline-flex; padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px;
+    font-family:'JetBrains Mono', monospace; font-size: 0.66rem;
+    color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .chip.accent{ border-color: var(--accent); color: var(--accent); }
+
+  .btn{
+    display:inline-flex; align-items:center; gap: 10px;
+    padding: 12px 20px; border-radius: 4px; font-weight: 500; font-size: 0.9rem;
+    transition: all .25s ease; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary{ background: var(--accent); color: var(--ink-deep); }
+  .btn-primary:hover{ background: var(--accent-deep); }
+  .btn-ghost{ background:transparent; color:var(--text); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+
+  [data-reveal]{ opacity:0; transform:translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  .nav-bg{ background: oklch(0.16 0.012 250 / 0.78); backdrop-filter: blur(14px); }
+
+  .feature{
+    border-left: 1px solid var(--accent);
+    padding: 4px 0 4px 18px;
+  }
+  .feature h4{ font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
+  .feature p{ font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+
+  .img-frame{
+    border: 1px solid var(--line-soft);
+    background: var(--surface);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/10;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-frame.placeholder{
+    background-image:
+      linear-gradient(45deg, oklch(0.26 0.012 250) 1px, transparent 1px),
+      linear-gradient(-45deg, oklch(0.26 0.012 250) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .img-frame::before, .img-frame::after{
+    content:""; position:absolute; width: 14px; height: 14px;
+    border: 1px solid var(--accent); z-index: 2;
+  }
+  .img-frame::before{ top: 6px; left: 6px; border-right:none; border-bottom:none; }
+  .img-frame::after{ bottom: 6px; right: 6px; border-left:none; border-top:none; }
+  .img-frame .ph-text{
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-3">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color: var(--accent);"><path d="M13 7H1m0 0l5-5m-5 5l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="mono text-xs uppercase tracking-[0.18em]" style="color: var(--text-dim);">Volver al portafolio</span>
+    </a>
+    <div class="hidden md:block mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">
+      Aplicativo N.01
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.4"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+
+    <div class="flex items-center justify-between mb-12">
+      <div class="coord">N.01 / Aplicativo Técnico</div>
+      <div class="coord hidden md:flex">Norma E.030 — 2026</div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-7">
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span class="chip accent">Estructuras</span>
+          <span class="chip">E.030 · 2026</span>
+          <span class="chip">Web app</span>
+        </div>
+        <h1 class="display text-5xl md:text-6xl lg:text-7xl mb-10" data-reveal>
+          Asistente <em>Sísmico</em><br>
+          E.030 — 2026.
+        </h1>
+        <p class="text-lg leading-relaxed max-w-2xl" style="color: var(--text-dim);" data-reveal>
+          Aplicativo web autocontenido que automatiza el análisis sísmico estático y dinámico bajo la Norma E.030 vigente: espectros, cortantes, derivas, irregularidades e importación directa de resultados ETABS.
+        </p>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="border-l pl-8 space-y-7" style="border-color: var(--line);">
+          <div>
+            <div class="coord mb-2">Categoría</div>
+            <div class="text-lg">Análisis estructural</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Normativa</div>
+            <div class="text-lg">E.030 — 2026 (Perú)</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Plataforma</div>
+            <div class="text-lg">Web · Funciona offline</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">Móvil · Tablet · PC</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Estado</div>
+            <div class="text-lg" style="color: var(--accent);">◆ &nbsp;En uso por clientes reales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVER / DEMO IMAGE -->
+<section class="pb-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="img-frame placeholder" style="aspect-ratio: 16/9;" data-reveal>
+      <div class="ph-text">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--accent);">— Espacio para captura —</div>
+        <div class="serif text-3xl mb-2">Vista principal del aplicativo</div>
+        <div class="mono text-xs" style="color: var(--muted);">[ Coloca aquí una captura grande de la interfaz: parámetros, espectro, resumen ]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT DOES -->
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="flex items-baseline gap-5 mb-12">
+      <span class="mono text-sm" style="color: var(--accent);">§ A</span>
+      <h2 class="serif text-3xl lg:text-4xl">Qué <em style="color: var(--accent); font-style:italic;">automatiza</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+      <div class="feature" data-reveal>
+        <h4>Parámetros sísmicos completos</h4>
+        <p>Z, U, S, Tp, TL, perfil de suelo y categoría según ubicación del proyecto.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Espectros X, Y, Z exportables</h4>
+        <p>Espectros de pseudoaceleración listos para importar en ETABS como archivo TXT.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Análisis estático</h4>
+        <p>Cortante basal, distribución de fuerzas, momentos de volteo y excentricidad accidental.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Importación directa ETABS</h4>
+        <p>Lee Mass Summary, Story Drifts y Pier Forces. Sin reescribir nada a mano.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Verificación de derivas</h4>
+        <p>Con amplificación normativa según la regularidad detectada del edificio.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Detección de irregularidades</h4>
+        <p>Masa, torsión, piso blando y rigidez evaluadas automáticamente.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Escalamiento dinámico</h4>
+        <p>Factores por dirección para cumplir cortante mínimo normativo.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h4>Memoria imprimible</h4>
+        <p>Reporte PDF de calidad y guardado/restauración de proyecto en JSON.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="flex items-baseline gap-5 mb-12">
+      <span class="mono text-sm" style="color: var(--accent);">§ B</span>
+      <h2 class="serif text-3xl lg:text-4xl">Capturas del <em style="color: var(--accent); font-style:italic;">aplicativo</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6" data-reveal>
+
+      <div class="img-frame placeholder">
+        <div class="ph-text">
+          <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">N.01</div>
+          <div class="serif text-xl">Parámetros sísmicos</div>
+          <div class="mono text-xs mt-2" style="color: var(--muted);">[ captura: pantalla de Z, U, S, Tp, TL ]</div>
+        </div>
+      </div>
+
+      <div class="img-frame placeholder">
+        <div class="ph-text">
+          <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">N.02</div>
+          <div class="serif text-xl">Espectros X / Y / Z</div>
+          <div class="mono text-xs mt-2" style="color: var(--muted);">[ captura: gráfica de espectros ]</div>
+        </div>
+      </div>
+
+      <div class="img-frame placeholder">
+        <div class="ph-text">
+          <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">N.03</div>
+          <div class="serif text-xl">Importación ETABS</div>
+          <div class="mono text-xs mt-2" style="color: var(--muted);">[ captura: tabla de resultados importados ]</div>
+        </div>
+      </div>
+
+      <div class="img-frame placeholder">
+        <div class="ph-text">
+          <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">N.04</div>
+          <div class="serif text-xl">Verificación de derivas</div>
+          <div class="mono text-xs mt-2" style="color: var(--muted);">[ captura: tabla de derivas vs. límites ]</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="mono text-xs uppercase tracking-[0.14em] mt-10 text-center" style="color: var(--muted);">
+      ◆ &nbsp; Capturas pendientes — se publicarán progresivamente
+    </p>
+  </div>
+</section>
+
+<!-- DEVELOPMENT NOTE -->
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-5xl mx-auto px-6 lg:px-10">
+    <div class="coord mb-6">§ C / Notas de desarrollo</div>
+    <h2 class="display text-4xl md:text-5xl mb-10" data-reveal>
+      Cómo lo <em>construí</em>.
+    </h2>
+    <div class="space-y-6 text-lg leading-relaxed" style="color: var(--text-dim);" data-reveal>
+      <p>
+        El aplicativo nace de una metodología propia que combino con asistencia de IA: primero recopilo fuentes bibliográficas serias (Norma E.030, libros de análisis sísmico), las transcribo a Markdown limpio, defino la lógica de cálculo, y recién después escribo el código.
+      </p>
+      <p>
+        La idea no es reemplazar ETABS ni el criterio del ingeniero — es eliminar las dos horas de Excel manual que se repiten en cada proyecto. La importación directa de los archivos de salida de ETABS fue el cambio que más tiempo ahorra.
+      </p>
+      <p>
+        El stack es deliberadamente simple: HTML, CSS y JavaScript puros. Cero dependencias, cero instalación, funciona offline. El usuario abre un archivo y trabaja.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24 lg:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.3"></div>
+  <div class="max-w-5xl mx-auto px-6 lg:px-10 relative text-center">
+    <div class="coord justify-center mb-8" style="display:inline-flex;">N.99 · Más aplicativos</div>
+    <h2 class="display text-4xl md:text-5xl mb-10">
+      Hay <em>12 aplicativos más</em><br>en el ecosistema.
+    </h2>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="../index.html#aplicativos" class="btn btn-primary">
+        Ver ecosistema completo
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <a href="../index.html#contacto" class="btn btn-ghost">Contactar al desarrollador</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-wrap items-center justify-between gap-4">
+    <a href="../index.html" class="flex items-center gap-3">
+      <div class="w-7 h-7 border flex items-center justify-center" style="border-color: var(--accent);">
+        <span class="serif text-base leading-none" style="color: var(--accent);">L</span>
+      </div>
+      <div class="text-sm font-medium">Luis Miguel Cruz Efus</div>
+    </a>
+    <div class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">
+      Aplicativo N.01 · Asistente Sísmico E.030
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

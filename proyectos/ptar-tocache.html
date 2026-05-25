@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#15171c">
+<title>PTAR Tocache — Caso de Estudio · Luis Miguel Cruz Efus</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --ink: oklch(0.16 0.012 250);
+    --ink-deep: oklch(0.12 0.012 250);
+    --surface: oklch(0.21 0.012 250);
+    --line: oklch(0.35 0.012 250 / 0.6);
+    --line-soft: oklch(0.35 0.012 250 / 0.25);
+    --text: oklch(0.94 0.008 80);
+    --text-dim: oklch(0.75 0.008 80);
+    --muted: oklch(0.6 0.012 250);
+    --accent: oklch(0.78 0.14 65);
+    --accent-deep: oklch(0.68 0.14 65);
+  }
+  *{ -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Geist', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .serif{ font-family:'Instrument Serif', Georgia, serif; font-weight:400; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .display{ font-family:'Instrument Serif', serif; font-weight:400; letter-spacing:-0.018em; line-height:0.95; }
+  .display em{ font-style:italic; color: var(--accent); }
+
+  .blueprint-bg{
+    background-image:
+      linear-gradient(oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .coord{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display:inline-flex; align-items:center; gap:0.5rem;
+  }
+  .coord::before{ content:""; width: 18px; height:1px; background: var(--accent); }
+
+  .chip{
+    display:inline-flex; padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px;
+    font-family:'JetBrains Mono', monospace; font-size: 0.66rem;
+    color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .chip.accent{ border-color: var(--accent); color: var(--accent); }
+
+  .btn{
+    display:inline-flex; align-items:center; gap: 10px;
+    padding: 12px 20px; border-radius: 4px; font-weight: 500; font-size: 0.9rem;
+    transition: all .25s ease; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-ghost{ background:transparent; color:var(--text); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+  .btn-primary{ background: var(--accent); color: var(--ink-deep); }
+  .btn-primary:hover{ background: var(--accent-deep); }
+
+  [data-reveal]{ opacity:0; transform:translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  .nav-bg{
+    background: oklch(0.16 0.012 250 / 0.78);
+    backdrop-filter: blur(14px);
+  }
+
+  .img-frame{
+    border: 1px solid var(--line-soft);
+    background: var(--surface);
+    overflow: hidden;
+    position: relative;
+  }
+  .img-frame::before, .img-frame::after{
+    content:""; position:absolute; width: 14px; height: 14px;
+    border: 1px solid var(--accent); z-index:2;
+  }
+  .img-frame::before{ top: 6px; left: 6px; border-right:none; border-bottom:none; }
+  .img-frame::after{ bottom: 6px; right: 6px; border-left:none; border-top:none; }
+  .img-frame img{ display:block; width:100%; height:auto; transition: transform .8s ease; }
+  .img-frame:hover img{ transform: scale(1.02); }
+
+  .img-caption{
+    padding: 10px 14px;
+    border-top: 1px solid var(--line-soft);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    display: flex; justify-content: space-between; align-items: center;
+    background: oklch(0.18 0.012 250);
+  }
+  .img-caption .num{ color: var(--accent); }
+
+  .step-card{
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 28px 28px 32px;
+    position: relative;
+  }
+  .step-card .step-num{
+    font-family:'Instrument Serif', serif;
+    font-size: 4rem; line-height: 1;
+    color: var(--accent);
+    font-style: italic;
+    position: absolute;
+    top: 20px; right: 24px;
+    opacity: 0.5;
+  }
+  .step-card h3{
+    font-family:'Instrument Serif', serif;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    max-width: 80%;
+  }
+  .step-card .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-3 group">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color: var(--accent);"><path d="M13 7H1m0 0l5-5m-5 5l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="mono text-xs uppercase tracking-[0.18em]" style="color: var(--text-dim);">Volver al portafolio</span>
+    </a>
+    <div class="hidden md:block mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">
+      Caso N.01 · Rev. 01
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.4"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 50% at 20% 0%, oklch(0.21 0.012 250) 0%, transparent 70%);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
+    <div class="flex items-center justify-between mb-12">
+      <div class="coord">N.01 / Caso de Estudio</div>
+      <div class="coord hidden md:flex">2024 — 2025 · San Martín</div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-7">
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span class="chip accent">Caso destacado</span>
+          <span class="chip">Saneamiento urbano</span>
+          <span class="chip">PTAR</span>
+          <span class="chip">BIM hidráulico</span>
+        </div>
+        <h1 class="display text-5xl md:text-6xl lg:text-7xl mb-10" data-reveal>
+          Ampliación y mejoramiento del<br>
+          servicio de <em>agua potable y<br>alcantarillado</em><br>
+          —&nbsp; PTAR Tocache.
+        </h1>
+        <p class="text-lg leading-relaxed max-w-2xl" style="color: var(--text-dim);" data-reveal>
+          Expediente técnico de saneamiento urbano en una ciudad de la provincia de Tocache, San Martín. Participé como modelador BIM de la parte hidráulica (interconexiones, reactores RAFA, modelo federado) y como responsable de cálculos hidráulicos puntuales del sistema.
+        </p>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="border-l pl-8 space-y-7" style="border-color: var(--line);">
+          <div>
+            <div class="coord mb-2">Rol</div>
+            <div class="text-lg">Modelador BIM Hidráulico</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">+ cálculos hidráulicos</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Cliente / Consultora</div>
+            <div class="text-lg">Hidroproject Consulting E.I.R.L.</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Periodo</div>
+            <div class="text-lg mono">2024 — 2025</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Stack</div>
+            <div class="text-lg">Revit · Twinmotion · AutoCAD · S10</div>
+          </div>
+          <div>
+            <div class="coord mb-2">Tipo de proyecto</div>
+            <div class="text-lg">Saneamiento urbano · PTAR con RAFA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVER IMAGE -->
+<section class="pb-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="img-frame" data-reveal>
+      <img src="https://i.postimg.cc/RCspNgt8/Ptar-tocache-twinmt.png" alt="PTAR Tocache — Carátula del recorrido Twinmotion sobre modelo BIM Revit">
+      <div class="img-caption">
+        <span><span class="num">N.00</span>&nbsp;&nbsp;&nbsp;Carátula del recorrido virtual — Twinmotion sobre modelo Revit</span>
+        <span class="hidden md:inline">— PTAR TOCACHE / TWINMT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA · SOLUCIÓN · RESULTADO -->
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-baseline gap-5 mb-16">
+      <span class="mono text-sm" style="color: var(--accent);">§ A</span>
+      <h2 class="serif text-3xl lg:text-4xl">Problema · Solución · <em style="color: var(--accent); font-style:italic;">Resultado</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+
+      <div class="step-card" data-reveal>
+        <div class="step-num">01</div>
+        <div class="label">Problema</div>
+        <h3>Coordinación hidráulica con planos 2D, sin modelo federado.</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--text-dim);">
+          El expediente requería integrar tratamiento preliminar, reactores RAFA y redes de interconexión en planta. Trabajar solo con planos AutoCAD generaba interferencias detectadas tarde y reprocesos en metrados y costos.
+        </p>
+      </div>
+
+      <div class="step-card" data-reveal>
+        <div class="step-num">02</div>
+        <div class="label">Solución</div>
+        <h3>Modelo BIM federado en Revit + recorrido Twinmotion.</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--text-dim);">
+          Modelé en Revit la parte hidráulica completa: interconexiones del Sector 2, geometría de los reactores anaerobios de flujo ascendente (RAFA) y elementos auxiliares. Integré las disciplinas en un modelo federado y produje el recorrido virtual para validación con el equipo y cliente.
+        </p>
+      </div>
+
+      <div class="step-card" data-reveal>
+        <div class="step-num">03</div>
+        <div class="label">Resultado</div>
+        <h3>Documentación coordinada y comunicación clara con el cliente.</h3>
+        <p class="text-sm leading-relaxed" style="color: var(--text-dim);">
+          Interferencias detectadas antes de planos definitivos, planos de planta consistentes con el modelo 3D y recorrido virtual usado como herramienta de comunicación. El modelo quedó como base reutilizable para futuras revisiones del expediente.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-baseline gap-5 mb-12">
+      <span class="mono text-sm" style="color: var(--accent);">§ B</span>
+      <h2 class="serif text-3xl lg:text-4xl">Galería <em style="color: var(--accent); font-style:italic;">técnica</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6" data-reveal>
+
+      <div class="img-frame md:col-span-2">
+        <img src="https://i.postimg.cc/6qbBPCyZ/screenshot-2.png" alt="Modelo 3D federado integral de la PTAR Tocache">
+        <div class="img-caption">
+          <span><span class="num">N.01</span>&nbsp;&nbsp;&nbsp;Modelo 3D federado integral — vista general de la PTAR</span>
+          <span class="hidden md:inline">— FEDERADO / 3D</span>
+        </div>
+      </div>
+
+      <div class="img-frame">
+        <img src="https://i.postimg.cc/yx3Sv68X/interconexiones-planta.png" alt="Planta de interconexiones del Sector 2">
+        <div class="img-caption">
+          <span><span class="num">N.02</span>&nbsp;&nbsp;&nbsp;Planta — Interconexiones, Sector 2</span>
+          <span class="hidden md:inline">— PLANTA</span>
+        </div>
+      </div>
+
+      <div class="img-frame">
+        <img src="https://i.postimg.cc/YCz81RVW/rafa-tocache.png" alt="Plano del reactor RAFA">
+        <div class="img-caption">
+          <span><span class="num">N.03</span>&nbsp;&nbsp;&nbsp;Plano — Reactor anaerobio de flujo ascendente (RAFA)</span>
+          <span class="hidden md:inline">— RAFA / 2D</span>
+        </div>
+      </div>
+
+      <div class="img-frame md:col-span-2">
+        <img src="https://i.postimg.cc/7ZZXn0kr/screenshot-7.png" alt="Vista 3D del reactor RAFA">
+        <div class="img-caption">
+          <span><span class="num">N.04</span>&nbsp;&nbsp;&nbsp;Vista 3D — Detalle del reactor RAFA</span>
+          <span class="hidden md:inline">— RAFA / 3D</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="mono text-xs uppercase tracking-[0.14em] mt-10 text-center" style="color: var(--muted);">
+      ◆ &nbsp; Material complementario (renders, despieces, secciones) se irá publicando progresivamente
+    </p>
+  </div>
+</section>
+
+<!-- TECHNICAL HIGHLIGHTS -->
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-baseline gap-5 mb-12">
+      <span class="mono text-sm" style="color: var(--accent);">§ C</span>
+      <h2 class="serif text-3xl lg:text-4xl">Aportes <em style="color: var(--accent); font-style:italic;">técnicos</em></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+      <div data-reveal>
+        <div class="coord mb-3">Modelado BIM</div>
+        <p class="leading-relaxed" style="color: var(--text-dim);">
+          Modelado paramétrico en Revit de tuberías, accesorios, buzones y estructuras hidráulicas con familias adaptadas a la realidad del proyecto. Niveles de detalle ajustados para coordinación, no para render decorativo.
+        </p>
+      </div>
+      <div data-reveal>
+        <div class="coord mb-3">Cálculo hidráulico</div>
+        <p class="leading-relaxed" style="color: var(--text-dim);">
+          Verificaciones puntuales del sistema (pendientes, tirantes, tirante crítico, velocidades autolimpiantes) cruzadas con el dimensionamiento del expediente.
+        </p>
+      </div>
+      <div data-reveal>
+        <div class="coord mb-3">Coordinación federada</div>
+        <p class="leading-relaxed" style="color: var(--text-dim);">
+          Integración del modelo hidráulico con arquitectura y estructuras del resto del equipo. Detección temprana de interferencias antes de la emisión definitiva de planos.
+        </p>
+      </div>
+      <div data-reveal>
+        <div class="coord mb-3">Comunicación con el cliente</div>
+        <p class="leading-relaxed" style="color: var(--text-dim);">
+          Recorrido virtual con Twinmotion sobre el modelo Revit, usado como medio de validación visual rápida con stakeholders no técnicos.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 p-6 lg:p-8 border" style="border-color: var(--line-soft); border-radius: 4px; background: oklch(0.21 0.012 250);">
+      <div class="flex gap-4 items-start">
+        <div class="mono text-xs" style="color: var(--accent);">i</div>
+        <div>
+          <div class="mono text-[0.7rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">Nota de confidencialidad</div>
+          <p class="text-sm leading-relaxed" style="color: var(--text-dim);">
+            Las imágenes mostradas corresponden a entregables propios del rol BIM. Información comercial, datos personales del equipo profesional y detalles contractuales del expediente se omiten por confidencialidad con la consultora y el cliente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24 lg:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 blueprint-bg" style="opacity:0.3"></div>
+  <div class="max-w-5xl mx-auto px-6 lg:px-10 relative text-center">
+    <div class="coord justify-center mb-8" style="display:inline-flex;">N.99 · Conversemos</div>
+    <h2 class="display text-4xl md:text-5xl lg:text-6xl mb-10" data-reveal>
+      ¿Tienes un proyecto similar?<br>
+      <em>Trabajemos juntos.</em>
+    </h2>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="../index.html#contacto" class="btn btn-primary">
+        Contactar
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <a href="../index.html#proyectos" class="btn btn-ghost">Ver otros proyectos</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-wrap items-center justify-between gap-4">
+    <a href="../index.html" class="flex items-center gap-3">
+      <div class="w-7 h-7 border flex items-center justify-center" style="border-color: var(--accent);">
+        <span class="serif text-base leading-none" style="color: var(--accent);">L</span>
+      </div>
+      <div class="text-sm font-medium">Luis Miguel Cruz Efus</div>
+    </a>
+    <div class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">
+      Caso N.01 · PTAR Tocache · Rev. 01
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
