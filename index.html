@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#15171c">
 <title>Luis Miguel Cruz Efus — Ingeniero Civil · Especialista BIM · Desarrollador</title>
-<meta name="description" content="Portafolio profesional de Luis Miguel Cruz Efus. Optimización y automatización de expedientes técnicos con flujos BIM. PTAR, saneamiento, presupuestos y aplicativos técnicos.">
+<meta name="description" content="Portafolio profesional de Luis Miguel Cruz Efus. Expedientes técnicos con flujo BIM, saneamiento y PTAR, aplicativos web bajo normativa peruana.">
+
+<link rel="icon" type="image/png" href="imagenes/lm_ingenieria/marca_lm/logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +42,6 @@
     --accent: oklch(0.78 0.14 65);
     --accent-deep: oklch(0.68 0.14 65);
     --accent-soft: oklch(0.78 0.14 65 / 0.12);
-    --blueprint: oklch(0.72 0.07 220);
   }
 
   *{ -webkit-tap-highlight-color: transparent; }
@@ -55,7 +56,6 @@
     overflow-x: hidden;
   }
 
-  /* Blueprint grid background — only in hero */
   .blueprint-bg{
     background-image:
       linear-gradient(oklch(0.35 0.012 250 / 0.18) 1px, transparent 1px),
@@ -81,7 +81,6 @@
   }
   .display em{ font-style: italic; color: var(--accent); font-weight:400; }
 
-  /* Coordinate tag */
   .coord{
     font-family:'JetBrains Mono', monospace;
     font-size: 0.68rem;
@@ -94,7 +93,6 @@
     content:""; width: 18px; height:1px; background: var(--accent);
   }
 
-  /* Tick / dimension lines */
   .tick-row{
     display:flex; align-items:center; gap: 8px;
     color: var(--muted); font-family:'JetBrains Mono', monospace;
@@ -104,11 +102,9 @@
     content:""; height: 1px; background: var(--line); flex:1;
   }
 
-  /* Reveal on scroll */
   [data-reveal]{ opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
   [data-reveal].in{ opacity: 1; transform: translateY(0); }
 
-  /* Cards */
   .card{
     background: linear-gradient(180deg, oklch(0.21 0.012 250) 0%, oklch(0.18 0.012 250) 100%);
     border: 1px solid var(--line-soft);
@@ -117,10 +113,7 @@
     position: relative;
     overflow: hidden;
   }
-  .card:hover{
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
+  .card:hover{ border-color: var(--accent); transform: translateY(-2px); }
   .card::after{
     content:""; position:absolute; inset:0; pointer-events:none;
     background:
@@ -132,7 +125,6 @@
   }
   .card:hover::after{ opacity: 1; }
 
-  /* Corner brackets — for hero figure */
   .brackets{ position: relative; }
   .brackets::before, .brackets::after{
     content:""; position:absolute; width: 18px; height: 18px;
@@ -141,7 +133,7 @@
   .brackets::before{ top: -1px; left: -1px; border-right:none; border-bottom:none; }
   .brackets::after{ bottom: -1px; right: -1px; border-left:none; border-top:none; }
 
-  /* Btn */
+  /* Buttons — equal hierarchy variants */
   .btn{
     display:inline-flex; align-items:center; gap: 10px;
     padding: 14px 22px;
@@ -154,19 +146,21 @@
     cursor: pointer;
     white-space: nowrap;
   }
-  .btn-primary{
-    background: var(--accent);
-    color: var(--ink-deep);
-  }
+  .btn-primary{ background: var(--accent); color: var(--ink-deep); }
   .btn-primary:hover{ background: var(--accent-deep); transform: translateY(-1px); }
-  .btn-ghost{
+  .btn-ghost{ background: transparent; color: var(--text); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+  /* Parallel variant — same visual weight as ghost, but with accent border (for paired CTAs) */
+  .btn-outline{
     background: transparent;
     color: var(--text);
-    border-color: var(--line);
+    border-color: var(--accent);
   }
-  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent); }
+  .btn-outline:hover{
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
 
-  /* App / Project card image area */
   .cover{
     aspect-ratio: 16/10;
     background:
@@ -188,7 +182,16 @@
   }
   .card:hover .cover img{ transform: scale(1.04); }
 
-  /* Section label */
+  /* Portrait cover variant (for 9:16 imagery) */
+  .cover-portrait{
+    aspect-ratio: 3/4;
+    background: oklch(0.16 0.012 250);
+  }
+  .cover-portrait img{
+    width:100%; height:100%; object-fit:contain;
+    background: oklch(0.10 0.012 250);
+  }
+
   .sec-label{
     display:flex; align-items:baseline; gap: 18px; margin-bottom: 28px;
   }
@@ -207,7 +210,6 @@
   .sec-title em{ font-style: italic; color: var(--accent); }
   .sec-rule{ flex:1; height:1px; background: linear-gradient(to right, var(--line), transparent); }
 
-  /* Stack ribbon */
   .stack-track{
     display:flex; gap: 56px; align-items:center;
     animation: marquee 50s linear infinite;
@@ -231,7 +233,6 @@
     content:"·"; color: var(--accent); font-size: 2rem; margin-left: 14px;
   }
 
-  /* Form */
   .field{
     width:100%;
     background: transparent;
@@ -247,7 +248,6 @@
   .field::placeholder{ color: var(--muted); }
   textarea.field{ resize: vertical; min-height: 80px; }
 
-  /* Glow blob behind hero */
   .glow{
     position: absolute;
     border-radius: 50%;
@@ -256,7 +256,6 @@
     pointer-events: none;
   }
 
-  /* Tag chips */
   .chip{
     display:inline-flex; align-items:center; gap: 6px;
     padding: 4px 10px;
@@ -270,19 +269,11 @@
   }
   .chip.accent{ border-color: var(--accent); color: var(--accent); }
 
-  /* Anchor target offset */
   section[id]{ scroll-margin-top: 80px; }
 
-  /* Project card "empty" state */
-  .empty-pulse{
-    animation: pulse 3s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%, 100%{ opacity: 0.5; }
-    50%{ opacity: 1; }
-  }
+  .empty-pulse{ animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse{ 0%, 100%{ opacity: 0.5; } 50%{ opacity: 1; } }
 
-  /* Numbered stat */
   .stat-num{
     font-family:'Instrument Serif', serif;
     font-size: clamp(2.6rem, 6vw, 3.6rem);
@@ -291,41 +282,131 @@
   }
   .stat-num em{ font-style: italic; color: var(--accent); }
 
-  /* Nav blur */
   .nav-bg{
-    background: oklch(0.16 0.012 250 / 0.78);
+    background: oklch(0.16 0.012 250 / 0.82);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
+
+  /* Social icons in nav */
+  .nav-social{
+    display:inline-flex; align-items:center; justify-content:center;
+    width: 34px; height: 34px;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    color: var(--text-dim);
+    transition: all .25s ease;
+  }
+  .nav-social:hover{
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .nav-social svg{ width: 15px; height: 15px; }
+
+  /* Logo bezel */
+  .logo-bezel{
+    width: 38px; height: 38px;
+    border: 1px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: oklch(0.10 0.012 250);
+  }
+  .logo-bezel img{ width: 78%; height: 78%; object-fit: contain; }
+
+  /* Name plate in hero */
+  .name-plate{
+    font-family:'Instrument Serif', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  .name-plate em{ font-style: italic; color: var(--accent); }
+
+  /* Mobile menu */
+  .mobile-menu{
+    display:none;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: oklch(0.12 0.012 250 / 0.97);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 20px 24px 24px;
+    z-index: 49;
+  }
+  .mobile-menu.open{ display: block; }
+  .mobile-menu a{
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+  }
+  .mobile-menu a:last-child{ border-bottom: none; }
 </style>
 </head>
 <body>
 
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-3 group">
-      <div class="w-8 h-8 border flex items-center justify-center" style="border-color: var(--accent);">
-        <span class="serif text-lg leading-none" style="color: var(--accent);">L</span>
+  <div class="max-w-7xl mx-auto px-5 lg:px-10 h-16 flex items-center justify-between gap-4">
+    <a href="#top" class="flex items-center gap-3 group shrink-0">
+      <div class="logo-bezel">
+        <img src="imagenes/lm_ingenieria/marca_lm/logo.png" alt="LM Ingeniería" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;serif&quot; style=&quot;color: var(--accent); font-size: 1.4rem;&quot;>LM</span>';">
       </div>
-      <div class="leading-tight">
-        <div class="text-sm font-medium tracking-tight">Luis M. Cruz Efus</div>
+      <div class="leading-tight hidden sm:block">
+        <div class="text-sm font-medium tracking-tight">Luis Miguel Cruz Efus</div>
         <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">CIP 339195 · Ing. Civil</div>
       </div>
     </a>
-    <nav class="hidden md:flex items-center gap-8 mono text-[0.72rem] uppercase tracking-[0.14em]" style="color: var(--text-dim);">
+
+    <nav class="hidden lg:flex items-center gap-7 mono text-[0.7rem] uppercase tracking-[0.14em]" style="color: var(--text-dim);">
       <a href="#perfil" class="hover:text-white transition-colors">Perfil</a>
       <a href="#proyectos" class="hover:text-white transition-colors">Proyectos</a>
       <a href="#aplicativos" class="hover:text-white transition-colors">Aplicativos</a>
       <a href="#stack" class="hover:text-white transition-colors">Stack</a>
       <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
     </nav>
-    <a href="#contacto" class="btn btn-ghost !py-2 !px-4 !text-xs">Conversemos →</a>
+
+    <!-- Top-right social rail -->
+    <div class="flex items-center gap-2">
+      <a class="nav-social hidden md:inline-flex" href="https://wa.me/51926179993?text=Hola%20Luis%2C%20te%20escribo%20por%20tu%20portafolio." target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0012 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 1020.5 3.5zM12 21.8a9.7 9.7 0 01-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.7 9.7 0 1112 21.8zm5.4-7.3l-1.9-1c-.3-.1-.5-.2-.7.1l-1 1.3c-.2.2-.4.3-.7.1a8 8 0 01-2.4-1.5 9 9 0 01-1.7-2c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5s0-.3 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.3 3.1a11.8 11.8 0 004.6 4 15 15 0 002.4.8c1 .3 1.9.3 2.6.2.8-.1 2.3-1 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.6-.4z"/></svg>
+      </a>
+      <a class="nav-social hidden md:inline-flex" href="https://www.linkedin.com/in/miguel-cruz-efus-6968b6154" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 110-3.5 1.8 1.8 0 010 3.5zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+      </a>
+      <a class="nav-social hidden md:inline-flex" href="https://www.youtube.com/@lmingenieria-x1f" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+      </a>
+      <a class="nav-social hidden md:inline-flex" href="https://www.facebook.com/profile.php?id=61557348655723" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.6-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.4l-.5 3.5h-2.9V24A12 12 0 0024 12z"/></svg>
+      </a>
+      <a class="nav-social hidden md:inline-flex" href="mailto:contacto.lmingenieria@gmail.com" aria-label="Correo de marca" title="contacto.lmingenieria@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+      </a>
+
+      <a href="#contacto" class="btn btn-ghost !py-2 !px-4 !text-xs hidden sm:inline-flex">Conversemos →</a>
+
+      <button id="mobileToggle" class="lg:hidden nav-social" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu lg:hidden">
+    <a href="#perfil">Perfil</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#aplicativos">Aplicativos</a>
+    <a href="#stack">Stack</a>
+    <a href="#contacto">Contacto</a>
   </div>
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+<section id="top" class="relative pt-28 pb-20 lg:pt-36 lg:pb-32 overflow-hidden">
   <div class="absolute inset-0 blueprint-bg" style="opacity:0.55"></div>
   <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.21 0.012 250) 0%, transparent 70%);"></div>
   <div class="glow" style="width: 600px; height: 600px; background: var(--accent); top: -100px; right: -100px;"></div>
@@ -333,54 +414,71 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-10 relative">
 
     <!-- Coordinate header line -->
-    <div class="flex items-center justify-between mb-12 lg:mb-20">
+    <div class="flex items-center justify-between mb-10 lg:mb-14">
       <div class="coord">N.00 · Portafolio Profesional</div>
-      <div class="coord hidden md:flex">Rev. 01 · 2026 · LIM-PE</div>
+      <div class="coord hidden md:flex">Rev. 02 · 2026 · LIM-PE</div>
     </div>
 
-    <!-- Main display -->
-    <div class="max-w-6xl">
-      <p class="mono text-xs uppercase tracking-[0.22em] mb-8" style="color: var(--accent);">
+    <!-- NAME PLATE — prominent, top -->
+    <div class="mb-10 lg:mb-14" data-reveal>
+      <div class="mono text-[0.68rem] uppercase tracking-[0.22em] mb-4" style="color: var(--accent);">
         ◆ &nbsp;Ingeniero Civil &nbsp;/&nbsp; Especialista BIM &nbsp;/&nbsp; Desarrollador
-      </p>
-      <h1 class="display text-[2.6rem] sm:text-[3.6rem] md:text-[4.8rem] lg:text-[6.2rem]" data-reveal>
-        Optimización y<br>
-        automatización<br>
-        de <em>expedientes técnicos</em><br>
-        con flujos <em>BIM</em>.
+      </div>
+      <h1 class="name-plate">
+        Luis Miguel <em>Cruz Efus</em>
       </h1>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-5 mono text-xs uppercase tracking-[0.16em]" style="color: var(--text-dim);">
+        <span style="color: var(--accent);">CIP N.° 339195</span>
+        <span class="hidden sm:inline">·</span>
+        <span>Lima, Perú</span>
+        <span class="hidden sm:inline">·</span>
+        <span>Disponible para consultoría</span>
+      </div>
+    </div>
+
+    <!-- Main display headline -->
+    <div class="max-w-6xl">
+      <h2 class="display text-[2.2rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.4rem]" data-reveal>
+        Expedientes técnicos<br>
+        con flujo <em>BIM</em>, <br>
+        y <em>aplicativos web</em><br>
+        que automatizan el cálculo.
+      </h2>
     </div>
 
     <!-- Subhead grid -->
-    <div class="grid md:grid-cols-12 gap-8 mt-16 lg:mt-24" data-reveal>
+    <div class="grid md:grid-cols-12 gap-8 mt-14 lg:mt-20" data-reveal>
       <div class="md:col-span-1 hidden md:block">
         <div class="mono text-[0.62rem] uppercase tracking-[0.2em]" style="color: var(--muted);">N.01</div>
       </div>
       <div class="md:col-span-7">
         <p class="text-lg lg:text-xl leading-relaxed" style="color: var(--text-dim);">
-          Llevo cinco años convirtiendo proyectos de saneamiento, PTAR e infraestructura en expedientes técnicos que no se reprocesan. Combino experiencia real en campo, modelado <span style="color: var(--text);">BIM con Revit</span>, presupuestos con <span style="color: var(--text);">S10 y Delphin Express</span>, planificación con <span style="color: var(--text);">Primavera P6</span> y desarrollo de aplicativos web para automatizar lo que antes tomaba semanas.
+          Cinco años de ejercicio profesional: tres en obra y dos en oficina. Trabajo en saneamiento, PTAR e infraestructura combinando <span style="color: var(--text);">modelado BIM con Revit</span>, presupuestos con <span style="color: var(--text);">S10 y Delphin Express</span>, planificación de proyectos y desarrollo de <span style="color: var(--text);">aplicativos web</span> bajo normativa peruana.
         </p>
       </div>
       <div class="md:col-span-4 flex md:justify-end items-end">
         <div class="flex flex-wrap gap-3">
-          <a href="#proyectos" class="btn btn-primary">
-            Ver casos de éxito
+          <a href="#proyectos" class="btn btn-outline">
+            Casos de éxito
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </a>
-          <a href="#aplicativos" class="btn btn-ghost">Ecosistema de aplicativos</a>
+          <a href="#aplicativos" class="btn btn-outline">
+            Ecosistema de aplicativos
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
         </div>
       </div>
     </div>
 
     <!-- Stats row -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-24 lg:mt-32 pt-10 border-t" style="border-color: var(--line-soft);" data-reveal>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 lg:mt-28 pt-10 border-t" style="border-color: var(--line-soft);" data-reveal>
       <div>
         <div class="stat-num"><em>05</em></div>
-        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Años de<br>experiencia técnica</div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Años de<br>experiencia</div>
       </div>
       <div>
-        <div class="stat-num"><em>13</em></div>
-        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Aplicativos<br>desarrollados</div>
+        <div class="stat-num"><em>10</em></div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Certificaciones<br>Autodesk BIM</div>
       </div>
       <div>
         <div class="stat-num"><em>221</em></div>
@@ -388,7 +486,7 @@
       </div>
       <div>
         <div class="stat-num"><em>+20</em></div>
-        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Expedientes técnicos<br>en saneamiento y PTAR</div>
+        <div class="mono text-[0.7rem] uppercase tracking-[0.14em] mt-3" style="color: var(--muted);">Expedientes<br>en saneamiento y PTAR</div>
       </div>
     </div>
 
@@ -408,14 +506,14 @@
     <div class="grid md:grid-cols-12 gap-10 lg:gap-16" data-reveal>
       <div class="md:col-span-7">
         <p class="serif text-3xl lg:text-4xl leading-[1.15]" style="color: var(--text);">
-          Reduzco reprocesos y tiempos de cálculo en expedientes técnicos combinando <em style="color: var(--accent); font-style: italic;">experiencia en campo</em>, dominio de <em style="color: var(--accent); font-style: italic;">presupuestos y programación normativa</em>, y la capacidad de automatizar lo repetitivo con código.
+          Reduzco reprocesos y tiempos de cálculo combinando <em style="color: var(--accent); font-style: italic;">experiencia real en obra</em>, dominio de <em style="color: var(--accent); font-style: italic;">presupuestos y programación normativa</em>, y la capacidad de automatizar lo repetitivo con código.
         </p>
         <div class="mt-10 space-y-5" style="color: var(--text-dim);">
           <p>
-            Migré por iniciativa propia los flujos de AutoCAD → Revit, MS Project → Primavera P6 y métodos tradicionales → Delphin Express en mi empresa actual, llevando coordinación BIM real a saneamiento y PTAR.
+            Mis primeros tres años los pasé en obra, gestionando viviendas de interés social en Lambayeque y apoyando en supervisión de obras viales en Cajamarca. Los dos últimos años trabajo en oficina, en Lima, dedicado a expedientes técnicos de saneamiento, PTAR e infraestructura.
           </p>
           <p>
-            Desde 2024 desarrollo aplicativos técnicos basados en normativa peruana (E.030, E.060, IS.010, AASHTO 93, MTC). Estas herramientas son, en realidad, la forma más honesta de demostrar cómo pienso: rigor normativo + lógica de cálculo + UX directa.
+            Desde 2026 he comenzado a desarrollar aplicativos web propios bajo normativa peruana (E.030, E.060, IS.010, AASHTO 93). Son la forma más honesta de mostrar cómo pienso: rigor normativo, lógica de cálculo y una interfaz que va al grano.
           </p>
         </div>
       </div>
@@ -428,8 +526,8 @@
           </div>
           <div>
             <div class="coord mb-2">Formación</div>
-            <div class="text-lg">Ingeniero Civil, UNPRG</div>
-            <div class="text-sm mt-1" style="color: var(--muted);">Maestría en Gerencia de la Construcción y Proyectos BIM — UPN (en curso)</div>
+            <div class="text-lg">Ingeniero Civil</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">Universidad Nacional Pedro Ruiz Gallo</div>
           </div>
           <div>
             <div class="coord mb-2">Colegiatura</div>
@@ -438,7 +536,7 @@
           <div>
             <div class="coord mb-2">Empleo actual</div>
             <div class="text-lg">Hidroproject Consulting E.I.R.L.</div>
-            <div class="text-sm mt-1" style="color: var(--muted);">Especialista en Expedientes Técnicos / Especialista BIM</div>
+            <div class="text-sm mt-1" style="color: var(--muted);">Especialista BIM · Costos y Presupuestos</div>
           </div>
         </div>
       </div>
@@ -459,14 +557,14 @@
     </div>
 
     <p class="max-w-2xl mb-16 text-lg leading-relaxed" style="color: var(--text-dim);" data-reveal>
-      Proyectos donde participé como modelador / coordinador BIM, especialista hidráulico o responsable de expediente. Documentados con el método <span class="mono text-sm" style="color: var(--accent);">PROBLEMA → SOLUCIÓN → RESULTADO</span>.
+      Proyectos donde participé como modelador / coordinador BIM o como apoyo en cálculos hidráulicos. Documentados con el método <span class="mono text-sm" style="color: var(--accent);">PROBLEMA → SOLUCIÓN → RESULTADO</span>.
     </p>
 
     <!-- Featured: Tocache -->
     <a href="proyectos/ptar-tocache.html" class="card block group" data-reveal>
       <div class="grid lg:grid-cols-12 gap-0">
-        <div class="lg:col-span-7 cover" style="aspect-ratio: auto;">
-          <img src="https://i.postimg.cc/RCspNgt8/Ptar-tocache-twinmt.png" alt="PTAR Tocache — render Twinmotion del modelo BIM" loading="lazy">
+        <div class="lg:col-span-7 cover" style="aspect-ratio: auto; min-height: 360px;">
+          <img src="proyectos_bim/ptar_tocache/00_render_twinmotion.png" alt="PTAR Tocache — render Twinmotion del modelo BIM" loading="lazy">
         </div>
         <div class="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between">
           <div>
@@ -479,7 +577,7 @@
               PTAR <em>Tocache</em>
             </h3>
             <p class="text-base leading-relaxed mb-8" style="color: var(--text-dim);">
-              Ampliación y mejoramiento de los servicios de agua potable y alcantarillado en una ciudad de San Martín. Modelado BIM completo de la parte hidráulica y cálculos hidráulicos asociados.
+              Expediente de ampliación y mejoramiento de los servicios de agua potable y alcantarillado en una ciudad de San Martín. Participé como modelador BIM de la parte hidráulica y apoyo en cálculos puntuales.
             </p>
             <div class="grid grid-cols-3 gap-4 pb-8 border-b" style="border-color: var(--line-soft);">
               <div>
@@ -523,7 +621,7 @@
         </div>
         <h3 class="serif text-2xl mb-2">PTAR Chota — Cajamarca</h3>
         <p class="text-sm" style="color: var(--muted);">
-          Expediente técnico de saneamiento urbano. Documentación en preparación; se publicará con renders, planos y memoria.
+          Expediente de saneamiento urbano. Documentación en preparación; se publicará con renders, planos y memoria.
         </p>
       </div>
 
@@ -567,42 +665,57 @@
     <div class="grid md:grid-cols-12 gap-8 mb-16" data-reveal>
       <div class="md:col-span-7">
         <p class="text-lg leading-relaxed" style="color: var(--text-dim);">
-          Aplicativos web autocontenidos que desarrollo bajo mi marca <span style="color: var(--text);">LM Ingeniería e Innovación</span>. Cada uno automatiza un cálculo normativo específico (E.030, E.060, IS.010, AASHTO 93). Funcionan sin instalación, en cualquier dispositivo. Aquí los muestro como evidencia técnica — no como producto comercial.
+          Aplicativos web autocontenidos que desarrollo bajo mi marca <span style="color: var(--text);">LM Ingeniería e Innovación</span>. Comencé en 2026; cada uno automatiza un cálculo normativo específico (E.030, E.060, IS.010, AASHTO 93). Funcionan sin instalación, en cualquier dispositivo.
         </p>
       </div>
       <div class="md:col-span-5 flex md:justify-end items-end">
-        <div class="tick-row w-full"><span>13 productos digitales</span></div>
+        <div class="tick-row w-full"><span>2 publicados · 11 en hoja de ruta</span></div>
       </div>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- App 1: Asistente Sísmico -->
+      <!-- App 1: Asistente Sísmico — PUBLISHED -->
       <a href="aplicativos/asistente-sismico.html" class="card group" data-reveal>
-        <div class="cover">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center px-6">
-              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--accent);">N.E.030 — 2026</div>
-              <div class="serif text-3xl leading-tight">Asistente <em style="color: var(--accent); font-style: italic;">Sísmico</em></div>
-              <div class="mono text-xs mt-3" style="color: var(--muted);">·  · ·</div>
-            </div>
-          </div>
+        <div class="cover-portrait">
+          <img src="imagenes/lm_ingenieria/asistente_sismico_e030_2026/00_caratula.png" alt="Asistente Sísmico E.030 — carátula" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;absolute inset-0 flex items-center justify-center&quot;><div class=&quot;text-center px-6&quot;><div class=&quot;mono text-[0.62rem] uppercase tracking-[0.18em] mb-3&quot; style=&quot;color: var(--accent);&quot;>N.E.030 — 2026</div><div class=&quot;serif text-3xl leading-tight&quot;>Asistente <em style=&quot;color: var(--accent); font-style: italic;&quot;>Sísmico</em></div></div></div>';">
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Estructuras</span>
+            <span class="chip accent">Publicado</span>
+            <span class="chip">E.030</span>
           </div>
-          <h3 class="font-medium text-lg mb-2">Asistente Sísmico E.030</h3>
+          <h3 class="font-medium text-lg mb-2">Asistente Sísmico E.030 — 2026</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Espectros, cortantes, derivas e irregularidades automatizadas. Importa resultados ETABS y genera memoria normativa.
+            Apoya la verificación sísmica: parámetros de sitio, espectros, cortantes estáticos, derivas, irregularidades y escalamiento dinámico. Importa resultados de ETABS y genera memoria normativa.
           </p>
           <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--accent);">Ver demo →</span>
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--accent);">Ver aplicativo →</span>
           </div>
         </div>
       </a>
 
-      <!-- App 2 -->
+      <!-- App 2: Muros de Corte — PUBLISHED -->
+      <a href="aplicativos/muros-de-corte.html" class="card group" data-reveal>
+        <div class="cover-portrait">
+          <img src="imagenes/lm_ingenieria/muros_de_corte_e060_aci318/00_caratula.png" alt="Muros de Corte E.060 / ACI 318 — carátula" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;absolute inset-0 flex items-center justify-center&quot;><div class=&quot;text-center px-6&quot;><div class=&quot;mono text-[0.62rem] uppercase tracking-[0.18em] mb-3&quot; style=&quot;color: var(--accent);&quot;>ACI 318 / E.060</div><div class=&quot;serif text-3xl leading-tight&quot;>Muros de <em style=&quot;color: var(--accent); font-style: italic;&quot;>Corte</em></div></div></div>';">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">Publicado</span>
+            <span class="chip">E.060 / ACI 318-25</span>
+          </div>
+          <h3 class="font-medium text-lg mb-2">Muros de Corte CºAº — E.060 / ACI 318-25</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">
+            Diseña y verifica muros estructurales: análisis P-M por fibras, decisión de elementos de borde especiales, cortante directo y por capacidad, confinamiento y diagrama de interacción.
+          </p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--accent);">Ver aplicativo →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Roadmap apps -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -614,19 +727,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Estructuras</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Estructuras</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Vigas de Concreto Armado</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Diseño por flexión, cortante y servicio. Optimización constructiva del acero y armado tipo plano.
+            Diseño por flexión, cortante y servicio. Optimización del acero y armado tipo plano.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 3 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -638,43 +748,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Estructuras</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Estructuras</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Columnas Rectangulares</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
             Flexocompresión biaxial 3D, esbeltez, P–Δ y confinamiento sísmico. Importa Column Forces de ETABS.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 4 -->
-      <div class="card group" data-reveal>
-        <div class="cover placeholder">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center px-6">
-              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-3" style="color: var(--text-dim);">ACI 318 / E.060</div>
-              <div class="serif text-3xl leading-tight">Muros de <em style="color: var(--accent); font-style: italic;">Corte</em></div>
-            </div>
-          </div>
-        </div>
-        <div class="p-6">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Estructuras</span>
-          </div>
-          <h3 class="font-medium text-lg mb-2">Muros de Corte</h3>
-          <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            P–M por fibras, decisión de SBE, confinamiento de bordes y cortante por capacidad.
-          </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- App 5 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -686,19 +769,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Estructuras</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Estructuras</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Escaleras de CºAº</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
             Verificación Blondel, combinaciones LRFD/ACI, acero positivo, negativo y temperatura.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 6 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -710,19 +790,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Transportes</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Transportes</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Pavimentos Flexibles AASHTO 93</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
             ESALs, Mr desde CBR, distribución de capas y validación de espesores mínimos MTC.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 7 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -734,19 +811,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Dotaciones de Agua Fría</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Cálculo de demanda según uso edificatorio, criterios IS.010 y reporte automatizado.
+            Cálculo de demanda según uso edificatorio y reporte automatizado.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 8 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -758,19 +832,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Sistema de Bombeo e Impulsión</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
             Selección de bomba, NPSH, golpe de ariete y dimensionamiento de línea de impulsión.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 9 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -782,19 +853,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Biodigestor Prefabricado</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Selección normativa, zanjas de infiltración asociadas y cumplimiento IS.020.
+            Selección normativa y dimensionamiento de zanjas de infiltración asociadas.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 10 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -806,19 +874,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Red de Agua — Ruta Crítica</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Cálculo hidráulico de la ruta crítica con verificación de presiones y velocidades.
+            Cálculo hidráulico con verificación de presiones y velocidades.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 11 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -830,19 +895,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Red de Desagüe — Ruta Crítica</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Cálculo de pendientes, tirantes y verificación normativa de ramales y colectores.
+            Pendientes, tirantes y verificación normativa de ramales y colectores.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 12 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -854,19 +916,16 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Inst. Sanitarias</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Inst. Sanitarias</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Zanjas de Infiltración</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
-            Dimensionamiento por test de percolación y cumplimiento IS.020 para tratamiento secundario.
+            Dimensionamiento por test de percolación y cumplimiento IS.020.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
-      <!-- App 13 -->
       <div class="card group" data-reveal>
         <div class="cover placeholder">
           <div class="absolute inset-0 flex items-center justify-center">
@@ -878,15 +937,13 @@
         </div>
         <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="chip accent">Geotecnia</span>
+            <span class="chip">En desarrollo</span>
+            <span class="chip">Geotecnia</span>
           </div>
           <h3 class="font-medium text-lg mb-2">Muros de Sostenimiento</h3>
           <p class="text-sm leading-relaxed" style="color: var(--muted);">
             Diseño y verificación geotécnica/estructural de muros de contención.
           </p>
-          <div class="mt-5 flex items-center justify-between">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">Documentación en preparación</span>
-          </div>
         </div>
       </div>
 
@@ -907,7 +964,6 @@
     </div>
   </div>
 
-  <!-- Marquee -->
   <div class="relative overflow-hidden">
     <div class="stack-track">
       <span class="stack-item">Revit</span>
@@ -915,20 +971,19 @@
       <span class="stack-item">Civil 3D</span>
       <span class="stack-item">S10 Costos</span>
       <span class="stack-item">Delphin Express</span>
-      <span class="stack-item">Primavera P6</span>
+      <span class="stack-item">MS Project</span>
       <span class="stack-item">Robot Structural</span>
       <span class="stack-item">Twinmotion</span>
       <span class="stack-item">Claude Code</span>
       <span class="stack-item">Excel Avanzado</span>
       <span class="stack-item">ETABS</span>
       <span class="stack-item">INVIERTE.PE</span>
-      <!-- Duplicate for seamless loop -->
       <span class="stack-item">Revit</span>
       <span class="stack-item">AutoCAD</span>
       <span class="stack-item">Civil 3D</span>
       <span class="stack-item">S10 Costos</span>
       <span class="stack-item">Delphin Express</span>
-      <span class="stack-item">Primavera P6</span>
+      <span class="stack-item">MS Project</span>
       <span class="stack-item">Robot Structural</span>
       <span class="stack-item">Twinmotion</span>
       <span class="stack-item">Claude Code</span>
@@ -938,7 +993,6 @@
     </div>
   </div>
 
-  <!-- Skills breakdown -->
   <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-16">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="border-l pl-5" style="border-color: var(--accent);">
@@ -947,15 +1001,15 @@
       </div>
       <div class="border-l pl-5" style="border-color: var(--line);">
         <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--text-dim);">Intermedio</div>
-        <div class="text-sm leading-relaxed">Primavera P6 · MS Project · Robot Structural · Civil 3D</div>
+        <div class="text-sm leading-relaxed">MS Project · Robot Structural · Civil 3D</div>
       </div>
       <div class="border-l pl-5" style="border-color: var(--line);">
         <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--text-dim);">Operativo</div>
-        <div class="text-sm leading-relaxed">Twinmotion · INVIERTE.PE · SEACE · OSCE · Power BI</div>
+        <div class="text-sm leading-relaxed">Twinmotion · INVIERTE.PE · SEACE · OSCE</div>
       </div>
       <div class="border-l pl-5" style="border-color: var(--accent);">
         <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--accent);">Diferencial</div>
-        <div class="text-sm leading-relaxed">Automatización HTML · Claude Code · Migración de flujos AutoCAD→Revit</div>
+        <div class="text-sm leading-relaxed">Desarrollo de aplicativos web · Claude Code · Migración de flujos AutoCAD → Revit</div>
       </div>
     </div>
   </div>
@@ -977,7 +1031,7 @@
           <em>próximo expediente</em>.
         </h2>
         <p class="text-lg leading-relaxed mb-12 max-w-xl" style="color: var(--text-dim);" data-reveal>
-          Disponible para consultoría de expedientes técnicos, coordinación BIM, modelado hidráulico, presupuestos S10/Delphin y desarrollo de aplicativos a medida. Lima, Perú — abierto a remoto.
+          Disponible para consultoría de expedientes, coordinación BIM, modelado hidráulico, presupuestos S10/Delphin y desarrollo de aplicativos a medida. Lima, Perú — abierto a trabajo remoto.
         </p>
 
         <div class="space-y-4">
@@ -992,24 +1046,57 @@
             <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           </a>
 
-          <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+          <a href="https://www.linkedin.com/in/miguel-cruz-efus-6968b6154" target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
             <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 110-3.5 1.8 1.8 0 010 3.5zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
             </div>
             <div class="flex-1">
               <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">LinkedIn</div>
-              <div class="text-lg">Luis Miguel Cruz Efus</div>
+              <div class="text-lg">Miguel Cruz Efus</div>
             </div>
             <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           </a>
 
-          <a href="mailto:lmcruzef@gmail.com" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+          <a href="https://www.youtube.com/@lmingenieria-x1f" target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">YouTube</div>
+              <div class="text-lg">@lmingenieria-x1f</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+
+          <a href="https://www.facebook.com/profile.php?id=61557348655723" target="_blank" rel="noopener" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.6-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.4l-.5 3.5h-2.9V24A12 12 0 0024 12z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Facebook · LM Ingeniería</div>
+              <div class="text-lg">Página de marca</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+
+          <a href="mailto:miguelefus@gmail.com" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
             <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
             </div>
             <div class="flex-1">
-              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Correo</div>
-              <div class="text-lg">lmcruzef@gmail.com</div>
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Correo personal</div>
+              <div class="text-lg">miguelefus@gmail.com</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </a>
+
+          <a href="mailto:contacto.lmingenieria@gmail.com" class="flex items-center gap-5 py-4 border-b group transition-colors hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--line);">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors group-hover:border-[oklch(0.78_0.14_65)] group-hover:text-[oklch(0.78_0.14_65)]" style="border-color: var(--line); color: var(--text);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Correo de marca · LM Ingeniería</div>
+              <div class="text-lg">contacto.lmingenieria@gmail.com</div>
             </div>
             <svg width="20" height="20" viewBox="0 0 14 14" fill="none" style="color: var(--text-dim);" class="group-hover:!text-[oklch(0.78_0.14_65)] transition-colors"><path d="M1 13L13 1m0 0H4m9 0v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           </a>
@@ -1054,16 +1141,30 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
     <div class="flex flex-wrap items-center justify-between gap-6">
       <div class="flex items-center gap-3">
-        <div class="w-7 h-7 border flex items-center justify-center" style="border-color: var(--accent);">
-          <span class="serif text-base leading-none" style="color: var(--accent);">L</span>
+        <div class="logo-bezel" style="width:32px; height:32px;">
+          <img src="imagenes/lm_ingenieria/marca_lm/logo.png" alt="LM Ingeniería" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;serif&quot; style=&quot;color: var(--accent); font-size: 1.1rem;&quot;>LM</span>';">
         </div>
         <div>
           <div class="text-sm font-medium">Luis Miguel Cruz Efus</div>
           <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">CIP 339195 · Lima, Perú</div>
         </div>
       </div>
-      <div class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">
-        © 2026 · Portafolio rev.01 · Construido por su autor
+      <div class="flex items-center gap-2">
+        <a class="nav-social" href="https://wa.me/51926179993" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0012 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 1020.5 3.5zM12 21.8a9.7 9.7 0 01-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.7 9.7 0 1112 21.8z"/></svg>
+        </a>
+        <a class="nav-social" href="https://www.linkedin.com/in/miguel-cruz-efus-6968b6154" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 110-3.5 1.8 1.8 0 010 3.5zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+        </a>
+        <a class="nav-social" href="https://www.youtube.com/@lmingenieria-x1f" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        </a>
+        <a class="nav-social" href="https://www.facebook.com/profile.php?id=61557348655723" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.6-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.4l-.5 3.5h-2.9V24A12 12 0 0024 12z"/></svg>
+        </a>
+      </div>
+      <div class="mono text-xs uppercase tracking-[0.14em] w-full md:w-auto md:text-right" style="color: var(--muted);">
+        © 2026 · Portafolio rev.02
       </div>
     </div>
   </div>
@@ -1080,6 +1181,14 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  // Mobile menu toggle
+  const mt = document.getElementById('mobileToggle');
+  const mm = document.getElementById('mobileMenu');
+  if (mt && mm) {
+    mt.addEventListener('click', () => mm.classList.toggle('open'));
+    mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mm.classList.remove('open')));
+  }
 
   // Contact form → WhatsApp
   document.getElementById('contactForm').addEventListener('submit', (e) => {
