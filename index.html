@@ -42,6 +42,9 @@
     --accent: oklch(0.78 0.14 65);
     --accent-deep: oklch(0.68 0.14 65);
     --accent-soft: oklch(0.78 0.14 65 / 0.12);
+    --accent-2: oklch(0.72 0.10 245);
+    --accent-2-deep: oklch(0.60 0.11 245);
+    --accent-2-soft: oklch(0.72 0.10 245 / 0.12);
   }
 
   *{ -webkit-tap-highlight-color: transparent; }
@@ -345,9 +348,56 @@
     color: var(--text-dim);
   }
   .mobile-menu a:last-child{ border-bottom: none; }
+
+  /* ===== Capa viva (atmósfera) + logo limpio — mejora rev.03 ===== */
+  .atmosphere{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .atmosphere .orb{ position:absolute; border-radius:50%; filter:blur(120px); will-change:transform; }
+  .atmosphere .orb-amber{ width:46vw; height:46vw; min-width:360px; min-height:360px; background:radial-gradient(circle, oklch(0.78 0.14 65 / 0.50), transparent 68%); top:-16vh; right:-8vw; opacity:.5; animation:driftA 30s ease-in-out infinite alternate; }
+  .atmosphere .orb-blue{ width:52vw; height:52vw; min-width:400px; min-height:400px; background:radial-gradient(circle, oklch(0.62 0.12 245 / 0.55), transparent 68%); bottom:-22vh; left:-12vw; opacity:.55; animation:driftB 38s ease-in-out infinite alternate; }
+  .atmosphere .orb-cyan{ width:34vw; height:34vw; min-width:280px; min-height:280px; background:radial-gradient(circle, oklch(0.72 0.10 215 / 0.42), transparent 70%); top:36%; left:40%; opacity:.4; animation:driftC 34s ease-in-out infinite alternate; }
+  @keyframes driftA{ to{ transform:translate(-7vw,8vh) scale(1.12); } }
+  @keyframes driftB{ to{ transform:translate(8vw,-6vh) scale(1.15); } }
+  @keyframes driftC{ to{ transform:translate(-6vw,-7vh) scale(1.2); } }
+  @media (prefers-reduced-motion: reduce){ .atmosphere .orb{ animation:none; } }
+  /* Logo sin recuadro amarillo, más presencia */
+  .logo-bezel{ width:auto !important; height:42px !important; border:none !important; background:transparent !important; overflow:visible !important; padding:0 !important; }
+  .logo-bezel img{ width:auto !important; height:100% !important; max-width:175px; object-fit:contain; }
+
+  /* Hero — dos puertas principales */
+  .hero-cta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; height:100%; }
+  @media (max-width:560px){ .hero-cta-grid{ grid-template-columns:1fr; } }
+  .hero-cta-panel{ position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; gap:34px; min-height:226px; padding:24px 24px 20px; border:1px solid var(--line); border-radius:10px; background:linear-gradient(160deg, oklch(0.22 0.012 250 / 0.65), oklch(0.16 0.012 250 / 0.35)); transition:transform .4s cubic-bezier(.2,.8,.2,1), border-color .4s ease, box-shadow .4s ease; }
+  .hero-cta-panel::after{ content:""; position:absolute; inset:0; opacity:0; transition:opacity .4s ease; background:radial-gradient(130% 90% at 85% -10%, var(--cta-soft), transparent 60%); pointer-events:none; }
+  .hero-cta-panel:hover{ transform:translateY(-5px); border-color:var(--cta); box-shadow:0 24px 60px -28px var(--cta-soft); }
+  .hero-cta-panel:hover::after{ opacity:1; }
+  .cta-amber{ --cta:var(--accent); --cta-soft:oklch(0.78 0.14 65 / 0.30); }
+  .cta-blue{ --cta:var(--accent-2); --cta-soft:oklch(0.62 0.12 245 / 0.42); }
+  .hcp-top{ display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; }
+  .hcp-index{ font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--muted); }
+  .hcp-icon{ width:46px; height:46px; border:1px solid var(--cta); color:var(--cta); border-radius:9px; display:flex; align-items:center; justify-content:center; transition:background .3s ease,color .3s ease; }
+  .hero-cta-panel:hover .hcp-icon{ background:var(--cta); color:var(--ink-deep); }
+  .hcp-kicker{ font-family:'JetBrains Mono',monospace; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--cta); margin-bottom:8px; }
+  .hcp-title{ font-family:'Instrument Serif',serif; font-size:2rem; line-height:1; letter-spacing:-0.01em; margin-bottom:9px; }
+  .hcp-desc{ font-size:0.88rem; color:var(--text-dim); line-height:1.5; max-width:30ch; position:relative; z-index:1; }
+  .hcp-foot{ display:flex; align-items:center; justify-content:space-between; padding-top:15px; border-top:1px solid var(--line-soft); margin-top:4px; position:relative; z-index:1; }
+  .hcp-foot .lbl{ font-family:'JetBrains Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--text-dim); }
+  .hcp-arrow{ color:var(--cta); display:inline-flex; transition:transform .3s ease; }
+  .hero-cta-panel:hover .hcp-arrow{ transform:translateX(6px); }
+  /* Nav estado activo */
+  nav a.nav-link{ position:relative; }
+  nav a.nav-link.active{ color:#fff; }
+  nav a.nav-link.active::after{ content:""; position:absolute; left:0; right:0; bottom:-7px; height:1px; background:var(--accent); }
+  /* Tarjeta de proyecto uniforme */
+  .proj-meta{ display:flex; flex-direction:column; gap:5px; margin:11px 0 12px; }
+  .proj-meta .k{ font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-right:7px; }
+  .proj-meta .v{ font-size:0.82rem; color:var(--text-dim); }
+  .proj-link{ font-family:'JetBrains Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent); display:inline-flex; align-items:center; gap:8px; }
+  .proj-link svg{ transition:transform .3s ease; }
+  .card:hover .proj-link svg{ transform:translateX(4px); }
 </style>
 </head>
 <body>
+<div class="atmosphere" aria-hidden="true"><span class="orb orb-amber"></span><span class="orb orb-blue"></span><span class="orb orb-cyan"></span></div>
 
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
@@ -363,11 +413,11 @@
     </a>
 
     <nav class="hidden lg:flex items-center gap-7 mono text-[0.7rem] uppercase tracking-[0.14em]" style="color: var(--text-dim);">
-      <a href="#perfil" class="hover:text-white transition-colors">Perfil</a>
-      <a href="#proyectos" class="hover:text-white transition-colors">Proyectos</a>
-      <a href="#aplicativos" class="hover:text-white transition-colors">Aplicativos</a>
-      <a href="#stack" class="hover:text-white transition-colors">Stack</a>
-      <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+      <a href="#perfil" class="nav-link hover:text-white transition-colors">Perfil</a>
+      <a href="#proyectos" class="nav-link hover:text-white transition-colors">Proyectos</a>
+      <a href="#aplicativos" class="nav-link hover:text-white transition-colors">Aplicativos</a>
+      <a href="#stack" class="nav-link hover:text-white transition-colors">Stack</a>
+      <a href="#contacto" class="nav-link hover:text-white transition-colors">Contacto</a>
     </nav>
 
     <!-- Top-right social rail -->
@@ -446,25 +496,45 @@
       </h2>
     </div>
 
-    <!-- Subhead grid -->
-    <div class="grid md:grid-cols-12 gap-8 mt-14 lg:mt-20" data-reveal>
-      <div class="md:col-span-1 hidden md:block">
-        <div class="mono text-[0.62rem] uppercase tracking-[0.2em]" style="color: var(--muted);">N.01</div>
-      </div>
-      <div class="md:col-span-7">
-        <p class="text-lg lg:text-xl leading-relaxed" style="color: var(--text-dim);">
-          Cinco años de trayectoria: tres en campo y dos en consultoría de expedientes técnicos. Trabajo en saneamiento, PTAR, PTAP e infraestructura combinando <span style="color: var(--text);">modelado BIM con Revit</span>, presupuestos con <span style="color: var(--text);">S10 y Delphin Express</span>, planificación de proyectos y desarrollo de <span style="color: var(--text);">aplicativos web</span> que automatizan cálculos y reducen tiempos de diseño.
+    <!-- Subhead + dos puertas principales -->
+    <div class="grid md:grid-cols-12 gap-10 lg:gap-12 mt-14 lg:mt-20 items-stretch" data-reveal>
+      <div class="md:col-span-5 flex flex-col justify-center">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.2em] mb-4" style="color: var(--muted);">N.01 — Resumen</div>
+        <p class="text-lg leading-relaxed" style="color: var(--text-dim);">
+          Cinco años de trayectoria —tres en obra, dos en consultoría— en saneamiento, PTAR, PTAP e infraestructura. Combino <span style="color: var(--text);">modelado BIM en Revit</span>, <span style="color: var(--text);">cálculo hidráulico</span> y presupuestos <span style="color: var(--text);">S10 / Delphin</span> con el desarrollo de <span style="color: var(--text);">aplicativos web</span> que automatizan cálculos bajo normativa.
         </p>
       </div>
-      <div class="md:col-span-4 flex md:justify-end items-end">
-        <div class="flex flex-wrap gap-3">
-          <a href="#proyectos" class="btn btn-outline">
-            Casos de éxito
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="md:col-span-7">
+        <div class="hero-cta-grid">
+          <a href="#proyectos" class="hero-cta-panel cta-amber group">
+            <div class="hcp-top">
+              <span class="hcp-index">01</span>
+              <span class="hcp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div>
+              <div class="hcp-kicker">Proyectos reales</div>
+              <h3 class="hcp-title">Casos de <em style="font-style:italic;color:var(--accent);">éxito</em></h3>
+              <p class="hcp-desc">PTAR y PTAP modeladas en BIM: arquitectura, hidráulica, cálculo y presupuesto.</p>
+            </div>
+            <div class="hcp-foot">
+              <span class="lbl">Ver proyectos</span>
+              <span class="hcp-arrow"><svg width="22" height="14" viewBox="0 0 22 14" fill="none"><path d="M1 7h19m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
           </a>
-          <a href="#aplicativos" class="btn btn-outline">
-            Ecosistema de aplicativos
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <a href="#aplicativos" class="hero-cta-panel cta-blue group">
+            <div class="hcp-top">
+              <span class="hcp-index">02</span>
+              <span class="hcp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+            </div>
+            <div>
+              <div class="hcp-kicker">Herramientas propias</div>
+              <h3 class="hcp-title">Ecosistema de <em style="font-style:italic;color:var(--accent-2);">aplicativos</em></h3>
+              <p class="hcp-desc">Apps web bajo normativa (E.030, E.060, IS.010, ACI 318) que automatizan el cálculo.</p>
+            </div>
+            <div class="hcp-foot">
+              <span class="lbl">Ver aplicativos</span>
+              <span class="hcp-arrow"><svg width="22" height="14" viewBox="0 0 22 14" fill="none"><path d="M1 7h19m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
           </a>
         </div>
       </div>
@@ -494,7 +564,7 @@
 </section>
 
 <!-- ============ PERFIL ============ -->
-<section id="perfil" class="py-24 lg:py-32 relative" style="background: var(--ink-deep);">
+<section id="perfil" class="py-24 lg:py-32 relative" style="background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
     <div class="sec-label">
@@ -556,104 +626,95 @@
       <span class="sec-rule"></span>
     </div>
 
-    <p class="max-w-2xl mb-16 text-lg leading-relaxed" style="color: var(--text-dim);" data-reveal>
-      Proyectos donde participé como modelador / coordinador BIM o realizando cálculos estructural e hidráulico. Documentados con el método <span class="mono text-sm" style="color: var(--accent);">PROBLEMA → SOLUCIÓN → RESULTADO</span>.
+    <p class="max-w-3xl mb-14 text-lg leading-relaxed" style="color: var(--text-dim);" data-reveal>
+      Plantas de agua potable y residual donde participé en el <span style="color: var(--text);">modelado BIM integral</span> (arquitectura e hidráulica), el <span style="color: var(--text);">cálculo hidráulico</span> y, en varios casos, el <span style="color: var(--text);">presupuesto</span>. Todos al mismo nivel — cada tarjeta abre su ficha técnica.
     </p>
 
-    <!-- Featured: Tocache -->
-    <a href="proyectos/ptar-tocache.html" class="card block group" data-reveal>
-      <div class="grid lg:grid-cols-12 gap-0">
-        <div class="lg:col-span-7 cover" style="aspect-ratio: auto; min-height: 360px;">
-          <img src="imagenes/proyectos_bim/ptar_tocache/00_render_twinmotion.png" alt="PTAR Tocache — render Twinmotion del modelo BIM" loading="lazy">
-        </div>
-        <div class="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <span class="chip accent">Caso destacado</span>
-              <span class="chip">2024 — 2025</span>
-            </div>
-            <div class="coord mb-4">N.01 / Proyecto</div>
-            <h3 class="display text-4xl lg:text-5xl mb-6">
-              PTAR <em>Tocache</em>
-            </h3>
-            <p class="text-base leading-relaxed mb-8" style="color: var(--text-dim);">
-              Expediente de ampliación y mejoramiento de los servicios de agua potable y alcantarillado en una ciudad de San Martín. Participé como modelador BIM de la parte hidráulica y apoyo en cálculos hidráulicos.
-            </p>
-            <div class="grid grid-cols-3 gap-4 pb-8 border-b" style="border-color: var(--line-soft);">
-              <div>
-                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Rol</div>
-                <div class="text-sm">Modelador BIM hidráulico</div>
-              </div>
-              <div>
-                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Stack</div>
-                <div class="text-sm">Revit · Twinmotion · AutoCAD</div>
-              </div>
-              <div>
-                <div class="mono text-[0.62rem] uppercase tracking-[0.14em] mb-1" style="color: var(--muted);">Sector</div>
-                <div class="text-sm">Saneamiento urbano</div>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-8">
-            <span class="mono text-xs uppercase tracking-[0.18em]" style="color: var(--accent);">Ver caso completo</span>
-            <span class="w-10 h-10 border flex items-center justify-center transition-all group-hover:bg-[oklch(0.78_0.14_65)] group-hover:border-[oklch(0.78_0.14_65)]" style="border-color: var(--accent);">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color: var(--accent);" class="group-hover:!text-[oklch(0.16_0.012_250)]"><path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </a>
+        <!-- Grilla uniforme de casos -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal>
 
-    <!-- More projects -->
-    <div class="grid md:grid-cols-2 gap-6 mt-6" data-reveal>
-      <a href="proyectos/ptar-chota.html" class="card block group p-0 overflow-hidden">
-        <div class="cover" style="aspect-ratio: 16/9;">
-          <img src="imagenes/proyectos_bim/ptar_chota/00_twinmotion_3D_general.png" alt="PTAR Chota — vista general del modelo BIM en Twinmotion" loading="lazy">
+      <a href="proyectos/ptar-tocache.html" class="card group block overflow-hidden">
+        <div class="cover" style="aspect-ratio:16/10;">
+          <img src="imagenes/proyectos_bim/ptar_tocache/00_render_twinmotion.png" alt="PTAR Tocache — render Twinmotion del modelo BIM" loading="lazy" onerror="this.closest('.cover').classList.add('placeholder'); this.remove();">
         </div>
-        <div class="p-8 lg:p-10">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="chip accent">Publicado</span>
-            <span class="chip">2024 — 2025</span>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">PTAR</span>
+            <span class="chip">San Martín</span>
           </div>
-          <h3 class="serif text-2xl mb-2">PTAR Chota — Cajamarca</h3>
-          <p class="text-sm" style="color: var(--muted);">
-            Expediente de PTAR con reactores UASB, sistema MBBR y tratamiento de biogás. Modelado BIM de unidades y coordinación gráfica.
-          </p>
-          <div class="mt-5">
-            <span class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--accent);">Ver caso completo →</span>
+          <h3 class="serif text-2xl leading-tight">PTAR Tocache</h3>
+          <div class="proj-meta">
+            <span><span class="k">Rol</span><span class="v">BIM integral · cálculo · presupuesto</span></span>
           </div>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">Reactores UASB/RAFA, lagunas facultativas, cloración y manejo de biogás.</p>
+          <div class="proj-link mt-4">Ver caso <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><path d="M1 6h19m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </a>
 
-      <div class="card p-8 lg:p-10">
-        <div class="cover placeholder mb-6 empty-pulse" style="aspect-ratio: 16/9; border: 1px dashed var(--line);">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center">
-              <div class="mono text-[0.62rem] uppercase tracking-[0.18em] mb-2" style="color: var(--muted);">— En documentación —</div>
-              <div class="serif text-2xl" style="color: var(--text-dim);">Saneamiento <em style="color: var(--accent); font-style:italic;">rural</em></div>
-            </div>
+      <a href="proyectos/ptar-chota.html" class="card group block overflow-hidden">
+        <div class="cover" style="aspect-ratio:16/10;">
+          <img src="imagenes/proyectos_bim/ptar_chota/00_twinmotion_3D_general.png" alt="PTAR Chota — vista general del modelo BIM en Twinmotion" loading="lazy" onerror="this.closest('.cover').classList.add('placeholder'); this.remove();">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">PTAR</span>
+            <span class="chip">Cajamarca</span>
           </div>
+          <h3 class="serif text-2xl leading-tight">PTAR Chota</h3>
+          <div class="proj-meta">
+            <span><span class="k">Rol</span><span class="v">BIM integral · cálculo hidráulico</span></span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">UASB + MBBR con sedimentadores, cloración y aprovechamiento de biogás.</p>
+          <div class="proj-link mt-4">Ver caso <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><path d="M1 6h19m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
-        <div class="flex items-center gap-3 mb-3">
-          <span class="chip">Próximamente</span>
-          <span class="chip">2024</span>
+      </a>
+
+      <a href="proyectos/ptap-tocache.html" class="card group block overflow-hidden">
+        <div class="cover" style="aspect-ratio:16/10;">
+          <img src="imagenes/proyectos_bim/ptap_tocache/00_render1_vista3d_twinmotion.png" alt="PTAP Tocache — render Twinmotion del modelo BIM" loading="lazy" onerror="this.closest('.cover').classList.add('placeholder'); this.remove();">
         </div>
-        <h3 class="serif text-2xl mb-2">Saneamiento rural — Comunidades nativas</h3>
-        <p class="text-sm" style="color: var(--muted);">
-          Cascabamba, Nuevo Miraflores y otros expedientes en zonas remotas. Documentación en preparación.
-        </p>
-      </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">PTAP</span>
+            <span class="chip">San Martín</span>
+          </div>
+          <h3 class="serif text-2xl leading-tight">PTAP Tocache</h3>
+          <div class="proj-meta">
+            <span><span class="k">Rol</span><span class="v">BIM integral · cálculo · presupuesto hidráulico</span></span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">Filtración rápida completa: floculación, sedimentación laminar y filtros duales.</p>
+          <div class="proj-link mt-4">Ver caso <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><path d="M1 6h19m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </a>
+
+      <a href="proyectos/ptar-san-cristobal.html" class="card group block overflow-hidden">
+        <div class="cover" style="aspect-ratio:16/10;">
+          <img src="imagenes/proyectos_bim/ptar_san_cristrobal_ayacucho/00_render_twinmotion_vista3d_lechos_secado.png" alt="PTAR San Cristóbal — render Twinmotion del modelo BIM" loading="lazy" onerror="this.closest('.cover').classList.add('placeholder'); this.remove();">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="chip accent">PTAR</span>
+            <span class="chip">Ayacucho</span>
+          </div>
+          <h3 class="serif text-2xl leading-tight">PTAR San Cristóbal</h3>
+          <div class="proj-meta">
+            <span><span class="k">Rol</span><span class="v">BIM integral (Arq. + Hid.)</span></span>
+          </div>
+          <p class="text-sm leading-relaxed" style="color: var(--muted);">Planta compacta MBBR para condominio, con reúso del efluente para riego.</p>
+          <div class="proj-link mt-4">Ver caso <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><path d="M1 6h19m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </a>
+
     </div>
 
-    <p class="mono text-xs uppercase tracking-[0.14em] mt-8 text-center" style="color: var(--muted);" data-reveal>
-      ◆ &nbsp;&nbsp;Portafolio en crecimiento — nuevos proyectos se documentan progresivamente
-    </p>
+    <p class="mono text-xs uppercase tracking-[0.14em] mt-10 text-center" style="color: var(--muted);" data-reveal>
+      ◆ &nbsp;&nbsp;Portafolio en crecimiento — nuevos casos se documentan progresivamente</p>
 
   </div>
 </section>
 
 <!-- ============ APLICATIVOS ============ -->
-<section id="aplicativos" class="py-24 lg:py-32 relative" style="background: var(--ink-deep);">
+<section id="aplicativos" class="py-24 lg:py-32 relative" style="background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
     <div class="sec-label">
@@ -665,7 +726,7 @@
     <div class="grid md:grid-cols-12 gap-8 mb-16" data-reveal>
       <div class="md:col-span-7">
         <p class="text-lg leading-relaxed" style="color: var(--text-dim);">
-          Aplicativos web autocontenidos que desarrollo bajo mi marca <span style="color: var(--text);">LM Ingeniería e Innovación</span>. Cada uno automatiza un cálculo específico (E.030, E.060, IS.010, ACI 318, AASHTO 93). Funcionan sin instalación, en cualquier dispositivo.
+          Aplicativos web que desarrollo bajo mi marca <span style="color: var(--text);">LM Ingeniería e Innovación</span>: cada uno automatiza un cálculo bajo normativa (E.030, E.060, IS.010, ACI 318, AASHTO 93), con verificación trazable y memoria exportable. Funcionan <span style="color: var(--text);">sin instalación y offline</span>, en cualquier dispositivo.
         </p>
       </div>
       <div class="md:col-span-5 flex md:justify-end items-end">
@@ -1132,7 +1193,7 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer class="py-12 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+<footer class="py-12 border-t" style="border-color: var(--line-soft); background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
     <div class="flex flex-wrap items-center justify-between gap-6">
       <div class="flex items-center gap-3">
@@ -1194,5 +1255,21 @@
   });
 </script>
 
+<script>
+  (function(){
+    const links = Array.from(document.querySelectorAll('nav a.nav-link'));
+    const map = links.map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) })).filter(x => x.sec);
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          links.forEach(l => l.classList.remove('active'));
+          const m = map.find(x => x.sec === e.target);
+          if (m) m.a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    map.forEach(x => spy.observe(x.sec));
+  })();
+</script>
 </body>
 </html>
