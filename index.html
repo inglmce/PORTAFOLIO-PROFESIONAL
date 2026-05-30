@@ -366,6 +366,10 @@
   /* Hero — dos puertas principales */
   .hero-cta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; height:100%; }
   @media (max-width:560px){ .hero-cta-grid{ grid-template-columns:1fr; } }
+  /* Apiladas a la derecha del hero */
+  .hero-doors{ display:flex; flex-direction:column; gap:16px; }
+  .hero-doors .hero-cta-panel{ min-height:0; gap:18px; padding:22px 24px 18px; }
+  .hero-doors .hcp-title{ font-size:1.85rem; }
   .hero-cta-panel{ position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; gap:34px; min-height:226px; padding:24px 24px 20px; border:1px solid var(--line); border-radius:10px; background:linear-gradient(160deg, oklch(0.22 0.012 250 / 0.65), oklch(0.16 0.012 250 / 0.35)); transition:transform .4s cubic-bezier(.2,.8,.2,1), border-color .4s ease, box-shadow .4s ease; }
   .hero-cta-panel::after{ content:""; position:absolute; inset:0; opacity:0; transition:opacity .4s ease; background:radial-gradient(130% 90% at 85% -10%, var(--cta-soft), transparent 60%); pointer-events:none; }
   .hero-cta-panel:hover{ transform:translateY(-5px); border-color:var(--cta); box-shadow:0 24px 60px -28px var(--cta-soft); }
@@ -402,13 +406,13 @@
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
   <div class="max-w-7xl mx-auto px-5 lg:px-10 h-16 flex items-center justify-between gap-4">
-    <a href="#top" class="flex items-center gap-3 group shrink-0">
-      <div class="logo-bezel">
-        <img src="imagenes/lm_ingenieria/marca_lm/logo.png" alt="LM Ingeniería" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;serif&quot; style=&quot;color: var(--accent); font-size: 1.4rem;&quot;>LM</span>';">
+    <a href="#top" class="nav-identity flex flex-col justify-center leading-none shrink-0 group">
+      <div class="flex items-baseline gap-2.5 whitespace-nowrap mb-1.5">
+        <span class="serif text-lg sm:text-xl leading-none" style="letter-spacing:-0.01em;">Luis Miguel Cruz Efus</span>
+        <span class="mono text-[0.56rem] uppercase tracking-[0.14em] hidden md:inline" style="color: var(--muted);">CIP N.° 339195</span>
       </div>
-      <div class="leading-tight hidden sm:block">
-        <div class="text-sm font-medium tracking-tight">LM INGENIERÍA E INNOVACIÓN</div>
-        <div class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">AUTOMATIZACIÓN DE CÁLCULOS DE INGENIERÍA</div>
+      <div class="mono text-[0.55rem] sm:text-[0.62rem] uppercase tracking-[0.16em] flex items-center gap-1.5" style="color: var(--accent);">
+        <span style="font-size:0.7em;">◆</span> Ingeniero Civil <span style="color: var(--muted);">·</span> Especialista BIM <span style="color: var(--muted);">·</span> Desarrollador
       </div>
     </a>
 
@@ -456,7 +460,7 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="relative pt-28 pb-20 lg:pt-36 lg:pb-32 overflow-hidden">
+<section id="top" class="relative pt-24 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
   <div class="absolute inset-0 blueprint-bg" style="opacity:0.55"></div>
   <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.21 0.012 250) 0%, transparent 70%);"></div>
   <div class="glow" style="width: 600px; height: 600px; background: var(--accent); top: -100px; right: -100px;"></div>
@@ -469,43 +473,25 @@
       <div class="coord hidden md:flex">Rev. 02 · 2026 · LIM-PE</div>
     </div>
 
-    <!-- NAME PLATE — prominent, top -->
-    <div class="mb-10 lg:mb-14" data-reveal>
-      <div class="mono text-[0.68rem] uppercase tracking-[0.22em] mb-4" style="color: var(--accent);">
-        ◆ &nbsp;Ingeniero Civil &nbsp;/&nbsp; Especialista BIM &nbsp;/&nbsp; Desarrollador
-      </div>
-      <h1 class="name-plate">
-        Luis Miguel <em>Cruz Efus</em>
-      </h1>
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-5 mono text-xs uppercase tracking-[0.16em]" style="color: var(--text-dim);">
-        <span style="color: var(--accent);">CIP N.° 339195</span>
-        <span class="hidden sm:inline">·</span>
-        <span>Lima, Perú</span>
-        <span class="hidden sm:inline">·</span>
-        <span>Disponible para consultoría</span>
-      </div>
-    </div>
+    <!-- Headline (left) + dos puertas principales (right, apiladas) -->
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-    <!-- Main display headline -->
-    <div class="max-w-6xl">
-      <h2 class="display text-[2.2rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.4rem]" data-reveal>
-        Expedientes técnicos<br>
-        con flujo <em>BIM</em>, <br>
-        y <em>aplicativos web</em><br>
-        que automatizan el cálculo.
-      </h2>
-    </div>
-
-    <!-- Subhead + dos puertas principales -->
-    <div class="grid md:grid-cols-12 gap-10 lg:gap-12 mt-14 lg:mt-20 items-stretch" data-reveal>
-      <div class="md:col-span-5 flex flex-col justify-center">
-        <div class="mono text-[0.62rem] uppercase tracking-[0.2em] mb-4" style="color: var(--muted);">N.01 — Resumen</div>
-        <p class="text-lg leading-relaxed" style="color: var(--text-dim);">
-          Cinco años de trayectoria —tres en obra, dos en consultoría— en saneamiento, PTAR, PTAP e infraestructura. Combino <span style="color: var(--text);">modelado BIM en Revit</span>, <span style="color: var(--text);">cálculo hidráulico</span> y presupuestos <span style="color: var(--text);">S10 / Delphin</span> con el desarrollo de <span style="color: var(--text);">aplicativos web</span> que automatizan cálculos bajo normativa.
-        </p>
+      <!-- Main display headline -->
+      <div class="lg:col-span-7" data-reveal>
+        <div class="mono text-[0.62rem] uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+          ◆ &nbsp;Portafolio profesional &nbsp;·&nbsp; Saneamiento &nbsp;·&nbsp; BIM &nbsp;·&nbsp; Aplicativos
+        </div>
+        <h2 class="display text-[2.2rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[4rem]">
+          Expedientes técnicos<br>
+          con flujo <em>BIM</em>, <br>
+          y <em>aplicativos web</em><br>
+          que automatizan el cálculo.
+        </h2>
       </div>
-      <div class="md:col-span-7">
-        <div class="hero-cta-grid">
+
+      <!-- Dos puertas apiladas -->
+      <div class="lg:col-span-5" data-reveal>
+        <div class="hero-doors">
           <a href="#proyectos" class="hero-cta-panel cta-amber group">
             <div class="hcp-top">
               <span class="hcp-index">01</span>
@@ -537,6 +523,18 @@
             </div>
           </a>
         </div>
+      </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="grid md:grid-cols-12 gap-10 mt-16 lg:mt-20 pt-12 border-t" style="border-color: var(--line-soft);" data-reveal>
+      <div class="md:col-span-3">
+        <div class="mono text-[0.62rem] uppercase tracking-[0.2em]" style="color: var(--muted);">N.01 — Resumen</div>
+      </div>
+      <div class="md:col-span-9">
+        <p class="text-lg leading-relaxed max-w-4xl" style="color: var(--text-dim);">
+          Cinco años de trayectoria —tres en obra, dos en consultoría— en saneamiento, PTAR, PTAP e infraestructura. Combino <span style="color: var(--text);">modelado BIM en Revit</span>, <span style="color: var(--text);">cálculo hidráulico</span> y presupuestos <span style="color: var(--text);">S10 / Delphin</span> con el desarrollo de <span style="color: var(--text);">aplicativos web</span> que automatizan cálculos bajo normativa.
+        </p>
       </div>
     </div>
 

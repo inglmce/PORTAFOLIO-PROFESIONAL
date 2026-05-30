@@ -27,6 +27,9 @@
     --accent: oklch(0.78 0.14 65);
     --accent-deep: oklch(0.68 0.14 65);
     --accent-soft: oklch(0.78 0.14 65 / 0.12);
+    --accent-2: oklch(0.72 0.10 245);
+    --accent-2-deep: oklch(0.60 0.11 245);
+    --accent-2-soft: oklch(0.72 0.10 245 / 0.12);
   }
   *{ -webkit-tap-highlight-color: transparent; }
   html{ scroll-behavior:smooth; }
@@ -257,9 +260,56 @@
     letter-spacing: 0.14em; z-index: 5;
   }
   .lightbox-counter span{ color: var(--accent); }
+
+  /* ===== Capa viva (atmósfera) + logo limpio — mejora rev.03 ===== */
+  .atmosphere{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .atmosphere .orb{ position:absolute; border-radius:50%; filter:blur(120px); will-change:transform; }
+  .atmosphere .orb-amber{ width:46vw; height:46vw; min-width:360px; min-height:360px; background:radial-gradient(circle, oklch(0.78 0.14 65 / 0.50), transparent 68%); top:-16vh; right:-8vw; opacity:.5; animation:driftA 30s ease-in-out infinite alternate; }
+  .atmosphere .orb-blue{ width:52vw; height:52vw; min-width:400px; min-height:400px; background:radial-gradient(circle, oklch(0.62 0.12 245 / 0.55), transparent 68%); bottom:-22vh; left:-12vw; opacity:.55; animation:driftB 38s ease-in-out infinite alternate; }
+  .atmosphere .orb-cyan{ width:34vw; height:34vw; min-width:280px; min-height:280px; background:radial-gradient(circle, oklch(0.72 0.10 215 / 0.42), transparent 70%); top:36%; left:40%; opacity:.4; animation:driftC 34s ease-in-out infinite alternate; }
+  @keyframes driftA{ to{ transform:translate(-7vw,8vh) scale(1.12); } }
+  @keyframes driftB{ to{ transform:translate(8vw,-6vh) scale(1.15); } }
+  @keyframes driftC{ to{ transform:translate(-6vw,-7vh) scale(1.2); } }
+  @media (prefers-reduced-motion: reduce){ .atmosphere .orb{ animation:none; } }
+  /* Logo sin recuadro amarillo, más presencia */
+  .logo-bezel{ width:auto !important; height:42px !important; border:none !important; background:transparent !important; overflow:visible !important; padding:0 !important; }
+  .logo-bezel img{ width:auto !important; height:100% !important; max-width:175px; object-fit:contain; }
+
+  /* ===== Carrusel-hero (aplicativo · retrato) ===== */
+  .hero-carousel{ position:relative; }
+  .hcar-stage{ position:relative; border:1px solid var(--line-soft); background:oklch(0.09 0.012 250); border-radius:8px; overflow:hidden; aspect-ratio:9/16; max-width:320px; margin:0 auto; }
+  .hcar-stage::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(oklch(0.35 0.012 250 / 0.10) 1px,transparent 1px),linear-gradient(90deg,oklch(0.35 0.012 250 / 0.10) 1px,transparent 1px); background-size:26px 26px; z-index:0; }
+  .hcar-frame::before,.hcar-frame::after{ content:""; position:absolute; width:14px; height:14px; border:1px solid var(--accent); z-index:6; pointer-events:none; }
+  .hcar-frame::before{ top:9px; left:9px; border-right:none; border-bottom:none; }
+  .hcar-frame::after{ bottom:9px; right:9px; border-left:none; border-top:none; }
+  .hcar-slide{ position:absolute; inset:0; opacity:0; transition:opacity .7s ease; display:flex; align-items:center; justify-content:center; z-index:1; cursor:zoom-in; }
+  .hcar-slide.is-active{ opacity:1; z-index:2; }
+  .hcar-slide img{ width:100%; height:100%; object-fit:cover; }
+  .hcar-slide.ph img{ display:none; }
+  .hcar-slide.ph::after{ content:"\2295 "attr(data-num); font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.16em; color:var(--muted); }
+  .hcar-nav{ position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; background:oklch(0.10 0.012 250 / 0.7); backdrop-filter:blur(8px); border:1px solid var(--accent); color:var(--accent); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:6; transition:background .25s,color .25s; }
+  .hcar-nav:hover{ background:var(--accent); color:var(--ink-deep); }
+  .hcar-nav.prev{ left:10px; } .hcar-nav.next{ right:10px; }
+  .hcar-zoom{ position:absolute; top:12px; right:12px; z-index:6; display:inline-flex; align-items:center; gap:6px; padding:6px 10px; background:oklch(0.10 0.012 250 / 0.72); backdrop-filter:blur(8px); border:1px solid var(--accent); color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background .25s,color .25s; }
+  .hcar-zoom:hover{ background:var(--accent); color:var(--ink-deep); }
+  .hcar-caption{ position:absolute; left:12px; right:12px; bottom:16px; z-index:6; display:flex; align-items:center; gap:9px; padding:7px 11px; background:oklch(0.10 0.012 250 / 0.82); backdrop-filter:blur(8px); border:1px solid var(--line-soft); font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.04em; color:var(--text-dim); }
+  .hcar-caption .num{ color:var(--accent); }
+  .hcar-progress{ position:absolute; left:0; right:0; bottom:0; height:3px; background:oklch(0.30 0.012 250 / 0.4); z-index:6; }
+  .hcar-progress span{ display:block; height:100%; width:0; background:var(--accent); }
+  .hcar-dots{ display:flex; gap:7px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+  .hcar-dot{ width:28px; height:4px; border-radius:2px; background:var(--line); cursor:pointer; transition:background .25s,transform .25s; border:none; padding:0; }
+  .hcar-dot.is-active{ background:var(--accent); transform:scaleY(1.6); }
+  /* ===== Datos técnicos horizontales ===== */
+  .spec-strip{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:6px; overflow:hidden; }
+  @media (min-width:768px){ .spec-strip{ grid-template-columns:repeat(4,1fr); } }
+  .spec{ background:oklch(0.16 0.012 250); padding:18px 20px; }
+  .spec .k{ font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px; }
+  .spec .v{ font-size:1rem; color:var(--text); line-height:1.3; }
+  .spec .sub{ display:block; font-size:0.78rem; color:var(--muted); margin-top:3px; }
 </style>
 </head>
 <body>
+<div class="atmosphere" aria-hidden="true"><span class="orb orb-amber"></span><span class="orb orb-blue"></span><span class="orb orb-cyan"></span></div>
 
 <header class="fixed top-0 left-0 right-0 z-50 nav-bg border-b" style="border-color: var(--line-soft);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-4">
@@ -269,9 +319,6 @@
     </a>
     <div class="hidden md:flex items-center gap-3">
       <span class="mono text-[0.62rem] uppercase tracking-[0.18em]" style="color: var(--muted);">Aplicativo N.06</span>
-      <div class="logo-bezel">
-        <img src="../imagenes/lm_ingenieria/marca_lm/logo.png" alt="LM Ingeniería" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;serif&quot; style=&quot;color: var(--accent); font-size: 1.1rem;&quot;>LM</span>';">
-      </div>
     </div>
   </div>
 </header>
@@ -306,31 +353,46 @@
         </p>
       </div>
 
-      <div class="lg:col-span-5">
-        <div class="hero-cover" data-reveal>
-          <img src="../imagenes/lm_ingenieria/pavimentos_flexibles/00_pav_flexibles.png" alt="Pavimentos Flexibles AASHTO 93 — carátula" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;&quot;><div><div class=&quot;mono&quot; style=&quot;color: var(--accent); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px;&quot;>AASHTO 93 · MTC</div><div class=&quot;serif&quot; style=&quot;font-size: 2rem;&quot;>Pavimentos <em style=&quot;color: var(--accent); font-style:italic;&quot;>Flexibles</em></div></div></div>';">
+      <div class="lg:col-span-5" data-reveal>
+        <div class="hero-carousel" data-hcar>
+          <div class="hcar-stage hcar-frame">
+          <div class="hcar-slide is-active" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/01_pav_flexibles.png" data-num="N.01" data-caption="Datos de tránsito por tipo de vehículo"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/01_pav_flexibles.png" alt="N.01" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/02_pav_flexibles.png" data-num="N.02" data-caption="Cálculo de ESALs"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/02_pav_flexibles.png" alt="N.02" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/03_pav_flexibles.png" data-num="N.03" data-caption="CBR y módulo resiliente"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/03_pav_flexibles.png" alt="N.03" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/04_pav_flexibles.png" data-num="N.04" data-caption="Parámetros AASHTO y confiabilidad"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/04_pav_flexibles.png" alt="N.04" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/05_pav_flexibles.png" data-num="N.05" data-caption="Número estructural SN"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/05_pav_flexibles.png" alt="N.05" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/06_pav_flexibles.png" data-num="N.06" data-caption="Distribución de espesores por capa"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/06_pav_flexibles.png" alt="N.06" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+          <div class="hcar-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/07_pav_flexibles.png" data-num="N.07" data-caption="Verificación MTC y memoria final"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/07_pav_flexibles.png" alt="N.07" onerror="this.closest('.hcar-slide').classList.add('ph')"></div>
+            <button class="hcar-nav prev" aria-label="Anterior"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M9 1L3 7l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+            <button class="hcar-nav next" aria-label="Siguiente"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M5 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+            <button class="hcar-zoom" data-hcar-zoom><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Ampliar</button>
+            <div class="hcar-caption"><span class="num" data-hcar-num>N.01</span><span data-hcar-cap>Datos de tránsito por tipo de vehículo</span></div>
+            <div class="hcar-progress"><span></span></div>
+          </div>
+          <div class="hcar-dots">
+        <button class="hcar-dot is-active" aria-label="Imagen 1"></button>
+        <button class="hcar-dot" aria-label="Imagen 2"></button>
+        <button class="hcar-dot" aria-label="Imagen 3"></button>
+        <button class="hcar-dot" aria-label="Imagen 4"></button>
+        <button class="hcar-dot" aria-label="Imagen 5"></button>
+        <button class="hcar-dot" aria-label="Imagen 6"></button>
+        <button class="hcar-dot" aria-label="Imagen 7"></button>
+          </div>
         </div>
-        <div class="border-l pl-8 space-y-6 mt-10" style="border-color: var(--line);">
-          <div>
-            <div class="coord mb-2">Categoría</div>
-            <div class="text-lg">Diseño vial</div>
-          </div>
-          <div>
-            <div class="coord mb-2">Normativa</div>
-            <div class="text-lg">AASHTO 93 · MTC (Perú)</div>
-          </div>
-          <div>
-            <div class="coord mb-2">Plataforma</div>
-            <div class="text-lg">Web · Funciona offline</div>
-            <div class="text-sm mt-1" style="color: var(--muted);">Móvil · Tablet · PC</div>
-          </div>
-        </div>
+        <p class="mono text-[0.66rem] uppercase tracking-[0.14em] mt-4 text-center" style="color: var(--muted);">El recorrido avanza solo · usa ‹ › o desliza · clic en la imagen para ampliar</p>
       </div>
+    </div>
+
+    <div class="spec-strip mt-14" data-reveal>
+        <div class="spec"><span class="k">Categoría</span><span class="v">Diseño vial</span></div>
+        <div class="spec"><span class="k">Normativa</span><span class="v">AASHTO 93 · MTC (Perú)</span></div>
+        <div class="spec"><span class="k">Plataforma</span><span class="v">Web · Funciona offline</span><span class="sub">Móvil · Tablet · PC</span></div>
+        <div class="spec"><span class="k">Acceso</span><span class="v">Web · Sin instalación</span><span class="sub">Móvil · Tablet · PC</span></div>
     </div>
   </div>
 </section>
 
-<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
 
     <div class="flex items-baseline gap-5 mb-12">
@@ -363,74 +425,7 @@
   </div>
 </section>
 
-<section class="py-20 lg:py-28">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10">
-
-    <div class="flex items-baseline justify-between flex-wrap gap-4 mb-10">
-      <div class="flex items-baseline gap-5">
-        <span class="mono text-sm" style="color: var(--accent);">§ B</span>
-        <h2 class="serif text-3xl lg:text-4xl">Galería del <em style="color: var(--accent); font-style:italic;">aplicativo</em></h2>
-      </div>
-      <span class="mono text-[0.7rem] uppercase tracking-[0.18em]" style="color: var(--muted);">
-        Click en cualquier captura → vista ampliada con zoom
-      </span>
-    </div>
-
-    <div class="carousel" data-carousel>
-      <button class="carousel-nav prev" aria-label="Anterior">
-        <svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M9 1L3 7l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-
-      <div class="carousel-track" data-carousel-track>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/01_pav_flexibles.png" data-num="N.01" data-caption="Datos de tránsito por tipo de vehículo">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/01_pav_flexibles.png" alt="N.01" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.01</span> Tránsito</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/02_pav_flexibles.png" data-num="N.02" data-caption="Cálculo de ESALs">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/02_pav_flexibles.png" alt="N.02" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.02</span> ESALs</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/03_pav_flexibles.png" data-num="N.03" data-caption="CBR y módulo resiliente">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/03_pav_flexibles.png" alt="N.03" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.03</span> CBR → Mr</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/04_pav_flexibles.png" data-num="N.04" data-caption="Parámetros AASHTO y confiabilidad">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/04_pav_flexibles.png" alt="N.04" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.04</span> AASHTO</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/05_pav_flexibles.png" data-num="N.05" data-caption="Número estructural SN">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/05_pav_flexibles.png" alt="N.05" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.05</span> SN</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/06_pav_flexibles.png" data-num="N.06" data-caption="Distribución de espesores por capa">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/06_pav_flexibles.png" alt="N.06" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.06</span> Espesores</span></div>
-        </div>
-        <div class="carousel-slide" data-lightbox data-src="../imagenes/lm_ingenieria/pavimentos_flexibles/07_pav_flexibles.png" data-num="N.07" data-caption="Verificación MTC y memoria final">
-          <div class="img-wrap"><img src="../imagenes/lm_ingenieria/pavimentos_flexibles/07_pav_flexibles.png" alt="N.07" loading="lazy"></div>
-          <span class="zoom-hint">⊕ Zoom</span>
-          <div class="caption"><span><span class="num">N.07</span> Memoria</span></div>
-        </div>
-      </div>
-
-      <button class="carousel-nav next" aria-label="Siguiente">
-        <svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M5 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-
-    <p class="mono text-xs uppercase tracking-[0.14em] mt-8 text-center" style="color: var(--muted);">
-      Desliza horizontalmente · Toca cualquier imagen para ampliar
-    </p>
-  </div>
-</section>
-
-<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+<section class="py-20 lg:py-28 border-t" style="border-color: var(--line-soft); background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-5xl mx-auto px-6 lg:px-10">
     <div class="coord mb-6">§ C / Notas de desarrollo</div>
     <h2 class="display text-4xl md:text-5xl mb-10" data-reveal>
@@ -471,12 +466,9 @@
   </div>
 </section>
 
-<footer class="py-10 border-t" style="border-color: var(--line-soft); background: var(--ink-deep);">
+<footer class="py-10 border-t" style="border-color: var(--line-soft); background: oklch(0.12 0.012 250 / 0.66);">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-wrap items-center justify-between gap-4">
     <a href="../index.html" class="flex items-center gap-3">
-      <div class="logo-bezel" style="width:30px;height:30px;">
-        <img src="../imagenes/lm_ingenieria/marca_lm/logo.png" alt="LM Ingeniería" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;serif&quot; style=&quot;color: var(--accent); font-size: 1rem;&quot;>LM</span>';">
-      </div>
       <div class="text-sm font-medium">Luis Miguel Cruz Efus</div>
     </a>
     <div class="mono text-xs uppercase tracking-[0.14em]" style="color: var(--muted);">
@@ -520,6 +512,44 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  /* ===== Carrusel-hero automático ===== */
+  document.querySelectorAll('[data-hcar]').forEach(car => {
+    const slides = Array.from(car.querySelectorAll('.hcar-slide'));
+    const dots = Array.from(car.querySelectorAll('.hcar-dot'));
+    const prog = car.querySelector('.hcar-progress span');
+    const capEl = car.querySelector('[data-hcar-cap]');
+    const numEl = car.querySelector('[data-hcar-num]');
+    const prev = car.querySelector('.hcar-nav.prev');
+    const next = car.querySelector('.hcar-nav.next');
+    const zoom = car.querySelector('[data-hcar-zoom]');
+    const stage = car.querySelector('.hcar-stage');
+    if(!slides.length) return;
+    let idx = 0, raf = null, t0 = 0;
+    const DUR = 4800;
+    function go(n){
+      idx = (n + slides.length) % slides.length;
+      slides.forEach((s,i)=>s.classList.toggle('is-active', i===idx));
+      dots.forEach((d,i)=>d.classList.toggle('is-active', i===idx));
+      const el = slides[idx];
+      if(capEl) capEl.textContent = ' ' + (el.dataset.caption||'');
+      if(numEl) numEl.textContent = el.dataset.num||'';
+      restart();
+    }
+    function tick(ts){ if(!t0) t0=ts; const p=Math.min(1,(ts-t0)/DUR); if(prog) prog.style.width=(p*100)+'%'; if(p>=1){ go(idx+1); return; } raf=requestAnimationFrame(tick); }
+    function restart(){ if(raf) cancelAnimationFrame(raf); t0=0; if(prog) prog.style.width='0%'; raf=requestAnimationFrame(tick); }
+    function pause(){ if(raf) cancelAnimationFrame(raf); raf=null; }
+    if(prev) prev.addEventListener('click', e=>{ e.stopPropagation(); go(idx-1); });
+    if(next) next.addEventListener('click', e=>{ e.stopPropagation(); go(idx+1); });
+    dots.forEach((d,i)=>d.addEventListener('click', e=>{ e.stopPropagation(); go(i); }));
+    if(zoom) zoom.addEventListener('click', e=>{ e.stopPropagation(); slides[idx].click(); });
+    car.addEventListener('mouseenter', pause);
+    car.addEventListener('mouseleave', restart);
+    let sx=0;
+    stage.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; pause(); }, {passive:true});
+    stage.addEventListener('touchend', e=>{ const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40){ go(idx+(dx<0?1:-1)); } else { restart(); } });
+    go(0);
+  });
 
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-carousel-track]');
